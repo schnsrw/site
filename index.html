@@ -35,8 +35,9 @@
         Sachin Sarwa
       </a>
       <div class="nav__links">
-        <a class="nav__link" href="#work">Work</a>
-        <a class="nav__link" href="#stack">Stack</a>
+        <a class="nav__link" href="/casual-sheets/">Sheets</a>
+        <a class="nav__link" href="/casual-editor/">Editor</a>
+        <a class="nav__link" href="/casual-desktop/">Desktop</a>
         <a class="nav__link" href="#contact">Contact</a>
         <a class="nav__link" href="https://github.com/schnsrw" rel="noopener">GitHub</a>
       </div>
@@ -57,14 +58,37 @@
           shipped.
         </p>
         <div class="hero__cta">
-          <a class="btn btn--primary" href="https://sheet.schnsrw.live/" rel="noopener">
-            <span>Open Casual Sheets</span>
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+          <a class="btn btn--primary" href="#work">
+            <span>View projects</span>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
           </a>
           <a class="btn btn--ghost" href="https://github.com/schnsrw" rel="noopener">
             <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.27-1.69-1.27-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.34.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.18 1.18.92-.26 1.91-.39 2.89-.39s1.97.13 2.89.39c2.21-1.49 3.18-1.18 3.18-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.83 1.18 3.09 0 4.42-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.21.68.8.56C20.21 21.38 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"/></svg>
             <span>GitHub</span>
           </a>
+        </div>
+        <div class="hero__quick">
+          <a class="quick" href="https://sheet.schnsrw.live/" rel="noopener">
+            <span class="quick__icon" style="color:#217346" aria-hidden="true">▦</span>
+            <span class="quick__body">
+              <span class="quick__title">Casual Sheets</span>
+              <span class="quick__sub">Open the live demo</span>
+            </span>
+          </a>
+          <a class="quick" href="https://doc.schnsrw.live/" rel="noopener">
+            <span class="quick__icon" style="color:#2563eb" aria-hidden="true">¶</span>
+            <span class="quick__body">
+              <span class="quick__title">Casual Editor</span>
+              <span class="quick__sub">Open the live demo</span>
+            </span>
+          </a>
+          <span class="quick quick--soon">
+            <span class="quick__icon" style="color:#0f172a" aria-hidden="true">⌘</span>
+            <span class="quick__body">
+              <span class="quick__title">Casual Desktop</span>
+              <span class="quick__sub">Coming soon</span>
+            </span>
+          </span>
         </div>
       </header>
 
@@ -164,10 +188,11 @@ docker compose up -d</code></pre>
             </div>
 
             <footer class="card__foot">
-              <a class="link link--primary" href="https://sheet.schnsrw.live/" rel="noopener">
-                Open app
+              <a class="link link--primary" href="/casual-sheets/">
+                Project page
                 <svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
               </a>
+              <a class="link" href="https://sheet.schnsrw.live/" rel="noopener">Open demo</a>
               <a class="link" href="https://github.com/schnsrw/sheets" rel="noopener">Source</a>
             </footer>
           </article>
@@ -258,11 +283,70 @@ docker compose --profile dev up</code></pre>
             </div>
 
             <footer class="card__foot">
-              <a class="link link--primary" href="https://doc.schnsrw.live/" rel="noopener">
-                Open app
+              <a class="link link--primary" href="/casual-editor/">
+                Project page
                 <svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
               </a>
+              <a class="link" href="https://doc.schnsrw.live/" rel="noopener">Open demo</a>
               <a class="link" href="https://github.com/schnsrw/docx" rel="noopener">Source</a>
+            </footer>
+          </article>
+
+          <!-- Casual Desktop -->
+          <article class="card">
+            <header class="card__head">
+              <div class="card__icon card__icon--desktop" aria-hidden="true">
+                <svg viewBox="0 0 32 32" fill="none">
+                  <rect width="32" height="32" rx="8" fill="currentColor"/>
+                  <rect x="6" y="8" width="20" height="13" rx="1.6" fill="#fff" fill-opacity="0.95"/>
+                  <rect x="13" y="22" width="6" height="2" rx="0.6" fill="#fff" fill-opacity="0.7"/>
+                  <line x1="10" y1="11.5" x2="22" y2="11.5" stroke="currentColor" stroke-width="1.2"/>
+                  <line x1="10" y1="14" x2="22" y2="14" stroke="currentColor" stroke-width="1.2"/>
+                  <line x1="10" y1="16.5" x2="18" y2="16.5" stroke="currentColor" stroke-width="1.2"/>
+                </svg>
+              </div>
+              <div class="card__title-block">
+                <h3 class="card__title">Casual Desktop</h3>
+                <p class="card__tag">Offline editor for documents and sheets</p>
+              </div>
+              <span class="badge badge--soon">
+                <span class="badge__dot" aria-hidden="true"></span>
+                Coming soon
+              </span>
+            </header>
+
+            <p class="card__desc">
+              Same editors, packaged for the desktop via Tauri — your
+              files stay on your machine, no cloud round-trip, no
+              collab server. A small native binary that opens .docx
+              and .xlsx straight from the OS file dialog and gives
+              you a Word/Excel feel without the install footprint.
+            </p>
+
+            <ul class="bullets">
+              <li>Single-user only — collab stays on the Docker image</li>
+              <li>Native file dialogs; no localhost, no browser tab</li>
+              <li>Reuses the Casual Editor + Casual Sheets web cores; deltas live in the Tauri shell</li>
+              <li>Targets macOS, Linux, and Windows from one codebase</li>
+            </ul>
+
+            <div class="meta-strip">
+              <span><strong>Status</strong> — early Tauri scaffolding. First binary lands after the docs &amp; sheets web fidelity hits its 90% floor.</span>
+            </div>
+
+            <div class="chips">
+              <span class="chip">Tauri</span>
+              <span class="chip">Rust</span>
+              <span class="chip">TypeScript</span>
+              <span class="chip">React</span>
+            </div>
+
+            <footer class="card__foot">
+              <a class="link link--primary" href="/casual-desktop/">
+                Project page
+                <svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+              </a>
+              <span class="link link--muted">Binaries coming soon</span>
             </footer>
           </article>
         </div>
@@ -337,19 +421,21 @@ docker compose --profile dev up</code></pre>
 
     <footer class="foot">
       <div class="foot__row">
-        <span class="foot__copyright">
-          Copyright © <span id="year">2026</span> Sachin Sarwa. All rights reserved.
+        <span class="foot__copyright">© <span class="year">2026</span> Sachin Sarwa</span>
+        <span class="foot__sep" aria-hidden="true">·</span>
+        <span class="foot__license-line">
+          <a href="/casual-sheets/">Casual Sheets</a> Apache-2.0,
+          <a href="/casual-editor/">Casual Editor</a> MIT,
+          <a href="/casual-desktop/">Casual Desktop</a> TBD
         </span>
         <span class="foot__sep" aria-hidden="true">·</span>
-        <a class="foot__link" href="https://github.com/schnsrw/site" rel="noopener">View source</a>
-        <span class="foot__sep" aria-hidden="true">·</span>
-        <span class="foot__mono">schnsrw.live</span>
+        <a class="foot__link" href="https://github.com/schnsrw/site" rel="noopener">Site source</a>
       </div>
     </footer>
 
     <script>
-      // Keep the footer copyright year accurate without a build step.
-      document.getElementById('year').textContent = String(new Date().getFullYear());
+      // Keep footer copyright year accurate without a build step.
+      document.querySelectorAll('.year').forEach((n) => (n.textContent = String(new Date().getFullYear())));
     </script>
   </body>
 </html>

@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Casual Desktop — Sachin Sarwa</title>
+    <meta name="description" content="Casual Desktop — offline document and spreadsheet editor for macOS, Linux, and Windows. Tauri-shelled Casual Editor + Casual Sheets cores." />
+    <meta name="theme-color" content="#fafaf7" />
+
+    <meta property="og:title" content="Casual Desktop — Sachin Sarwa" />
+    <meta property="og:description" content="Offline document + spreadsheet editor for macOS, Linux, Windows." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://schnsrw.live/casual-desktop/" />
+
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="canonical" href="https://schnsrw.live/casual-desktop/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <nav class="nav" aria-label="Primary">
+      <a class="nav__brand" href="/">
+        <span class="nav__dot" aria-hidden="true"></span>
+        Sachin Sarwa
+      </a>
+      <div class="nav__links">
+        <a class="nav__link" href="/casual-sheets/">Sheets</a>
+        <a class="nav__link" href="/casual-editor/">Editor</a>
+        <a class="nav__link nav__link--active" href="/casual-desktop/">Desktop</a>
+        <a class="nav__link" href="/#contact">Contact</a>
+        <a class="nav__link" href="https://github.com/schnsrw" rel="noopener">GitHub</a>
+      </div>
+    </nav>
+
+    <main class="page page--guide">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb__sep" aria-hidden="true">/</span>
+        <span aria-current="page">Casual Desktop</span>
+      </nav>
+
+      <header class="ph">
+        <div class="ph__icon" style="color:#0f172a" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none">
+            <rect width="32" height="32" rx="8" fill="currentColor"/>
+            <rect x="6" y="8" width="20" height="13" rx="1.6" fill="#fff" fill-opacity="0.95"/>
+            <rect x="13" y="22" width="6" height="2" rx="0.6" fill="#fff" fill-opacity="0.7"/>
+            <line x1="10" y1="11.5" x2="22" y2="11.5" stroke="currentColor" stroke-width="1.2"/>
+            <line x1="10" y1="14" x2="22" y2="14" stroke="currentColor" stroke-width="1.2"/>
+            <line x1="10" y1="16.5" x2="18" y2="16.5" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <div class="ph__body">
+          <p class="ph__eyebrow">Project</p>
+          <h1 class="ph__title">Casual Desktop</h1>
+          <p class="ph__tag">Offline document &amp; spreadsheet editor for macOS, Linux, Windows.</p>
+          <div class="ph__meta">
+            <span class="badge badge--soon"><span class="badge__dot"></span> Coming soon</span>
+            <span class="ph__license">License TBD</span>
+            <span class="ph__sep">·</span>
+            <span class="ph__link link--muted">Source on launch</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="guide">
+        <aside class="toc" aria-label="On this page">
+          <p class="toc__label">On this page</p>
+          <ol>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#approach">Approach</a></li>
+            <li><a href="#roadmap">Roadmap</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#updates">Get an update</a></li>
+          </ol>
+        </aside>
+
+        <article class="prose">
+          <section id="overview">
+            <h2>Overview</h2>
+            <p>
+              Casual Desktop packages the Casual Editor and Casual Sheets
+              web cores as a native binary via
+              <a href="https://tauri.app/" rel="noopener">Tauri</a>. Your
+              files stay on your machine; there is no cloud round-trip and
+              no collab server. A small download, a native window, native
+              file dialogs.
+            </p>
+            <div class="callout">
+              <p><strong>Status</strong> — early scaffolding. The first binary lands after the web fidelity hits its 90% pristine floor; building on a moving target wastes cycles.</p>
+            </div>
+          </section>
+
+          <section id="approach">
+            <h2>Approach</h2>
+            <p>
+              Casual Desktop is intentionally <em>not</em> a fresh editor.
+              The web codebases — React + ProseMirror for documents,
+              Univer for sheets — already solve the hard problems:
+              rendering, formulas, OOXML round-trip, paste, undo. The
+              desktop shell adds three thin layers:
+            </p>
+            <ol>
+              <li><strong>OS file dialogs.</strong> Open / Save / Recent driven by Tauri's native file APIs instead of <code>&lt;input type=file&gt;</code>.</li>
+              <li><strong>Local file persistence.</strong> The web cores hand bytes; the Tauri Rust backend writes them to the path the user picked.</li>
+              <li><strong>Optional native parsing.</strong> When a doc is big enough for the in-browser parser to feel sluggish, route through a Rust crate on the Tauri side and hand the model into the React view. Pure perf optimization, not fidelity.</li>
+            </ol>
+            <p>
+              No collab. Co-editing is the Docker image's job, not the
+              desktop binary's.
+            </p>
+          </section>
+
+          <section id="roadmap">
+            <h2>Roadmap</h2>
+            <ol class="roadmap">
+              <li><strong>Scaffold.</strong> Tauri app shell + Casual Editor or Casual Sheets web build packaged as the WebView content.</li>
+              <li><strong>Native file flow.</strong> Open / Save / Save As wired through Tauri's <code>dialog</code> + <code>fs</code> APIs.</li>
+              <li><strong>Recent files.</strong> Per-user JSON store, pinned-files surface in the editor's File menu.</li>
+              <li><strong>Multi-platform CI.</strong> Tauri release pipeline for macOS (universal), Linux (AppImage), Windows (MSI).</li>
+              <li><strong>Native parser handoff.</strong> Rust crate consumed from both the Tauri backend (native) and the web build (via WASM) for big-doc perf.</li>
+            </ol>
+          </section>
+
+          <section id="faq">
+            <h2>FAQ</h2>
+            <dl class="faq">
+              <dt>Why Tauri and not Electron?</dt>
+              <dd>The binary is an order of magnitude smaller, the runtime uses less RAM, and there's no Chromium bundled — the OS WebView handles rendering. The trade-off is platform-specific WebView quirks; for an office-style editor those are well-charted.</dd>
+
+              <dt>Will the desktop app open <code>.docx</code> and <code>.xlsx</code> from one binary?</dt>
+              <dd>That's the goal. Probably ship two binaries first (one per editor), merge into a single Casual Office app once the file-type routing is clean.</dd>
+
+              <dt>Will it support co-editing?</dt>
+              <dd>No. The collab story is Docker. The desktop binary is for the offline / single-user case where collab is a liability (latency, server dependency, data leaving the machine).</dd>
+
+              <dt>License?</dt>
+              <dd>To be decided at launch. The web cores stay under their existing licenses (MIT for Casual Editor, Apache-2.0 for Casual Sheets). The desktop shell will likely match.</dd>
+            </dl>
+          </section>
+
+          <section id="updates">
+            <h2>Get an update when it lands</h2>
+            <p>
+              Watch the GitHub orgs —
+              <a href="https://github.com/schnsrw" rel="noopener">github.com/schnsrw</a>
+              — for the new repo, or email
+              <a href="mailto:schnsrw@gmail.com">schnsrw@gmail.com</a> if you
+              want a heads-up.
+            </p>
+          </section>
+        </article>
+      </div>
+    </main>
+
+    <footer class="foot">
+      <div class="foot__row">
+        <span class="foot__copyright">© <span class="year">2026</span> Sachin Sarwa</span>
+        <span class="foot__sep" aria-hidden="true">·</span>
+        <span class="foot__mono">Casual Desktop — License TBD</span>
+        <span class="foot__sep" aria-hidden="true">·</span>
+        <a class="foot__link" href="/">Back home</a>
+      </div>
+    </footer>
+
+    <script>
+      document.querySelectorAll('.year').forEach((n) => (n.textContent = String(new Date().getFullYear())));
+    </script>
+  </body>
+</html>

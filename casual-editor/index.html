@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Casual Editor — Sachin Sarwa</title>
+    <meta name="description" content="Casual Editor — a Word-flavored web document editor with real-time co-editing. Open .docx, edit with WYSIWYG fidelity, share a link, edit live." />
+    <meta name="theme-color" content="#fafaf7" />
+
+    <meta property="og:title" content="Casual Editor — Sachin Sarwa" />
+    <meta property="og:description" content="Word-flavored web document editor with .docx round-trip fidelity and Yjs co-editing." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://schnsrw.live/casual-editor/" />
+
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="canonical" href="https://schnsrw.live/casual-editor/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <nav class="nav" aria-label="Primary">
+      <a class="nav__brand" href="/">
+        <span class="nav__dot" aria-hidden="true"></span>
+        Sachin Sarwa
+      </a>
+      <div class="nav__links">
+        <a class="nav__link" href="/casual-sheets/">Sheets</a>
+        <a class="nav__link nav__link--active" href="/casual-editor/">Editor</a>
+        <a class="nav__link" href="/casual-desktop/">Desktop</a>
+        <a class="nav__link" href="/#contact">Contact</a>
+        <a class="nav__link" href="https://github.com/schnsrw" rel="noopener">GitHub</a>
+      </div>
+    </nav>
+
+    <main class="page page--guide">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb__sep" aria-hidden="true">/</span>
+        <span aria-current="page">Casual Editor</span>
+      </nav>
+
+      <header class="ph">
+        <div class="ph__icon" style="color:#2563eb" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none">
+            <rect width="32" height="32" rx="8" fill="currentColor"/>
+            <path d="M9 8h11l3 3v13a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" fill="#fff" fill-opacity="0.95"/>
+            <path d="M20 8v3h3" stroke="currentColor" stroke-width="1.4" fill="none"/>
+            <line x1="11" y1="15" x2="20" y2="15" stroke="currentColor" stroke-width="1.4"/>
+            <line x1="11" y1="18" x2="20" y2="18" stroke="currentColor" stroke-width="1.4"/>
+            <line x1="11" y1="21" x2="17" y2="21" stroke="currentColor" stroke-width="1.4"/>
+          </svg>
+        </div>
+        <div class="ph__body">
+          <p class="ph__eyebrow">Project</p>
+          <h1 class="ph__title">Casual Editor</h1>
+          <p class="ph__tag">Word-flavored web document editor with .docx round-trip and live co-editing.</p>
+          <div class="ph__meta">
+            <span class="badge badge--live"><span class="badge__dot"></span> Live</span>
+            <span class="ph__license">MIT</span>
+            <span class="ph__sep">·</span>
+            <a class="ph__link" href="https://github.com/schnsrw/docx" rel="noopener">GitHub</a>
+            <span class="ph__sep">·</span>
+            <a class="ph__link" href="https://doc.schnsrw.live/" rel="noopener">Open demo</a>
+          </div>
+        </div>
+      </header>
+
+      <div class="guide">
+        <aside class="toc" aria-label="On this page">
+          <p class="toc__label">On this page</p>
+          <ol>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#architecture">Architecture</a></li>
+            <li><a href="#setup">Setup</a></li>
+            <li><a href="#configuration">Configuration</a></li>
+            <li><a href="#fidelity">Fidelity benchmark</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#roadmap">Roadmap</a></li>
+          </ol>
+        </aside>
+
+        <article class="prose">
+          <section id="overview">
+            <h2>Overview</h2>
+            <p>
+              Casual Editor is a browser-based document editor that feels like
+              Word, not Google Docs — a ribbon, a real page-layout view, and a
+              file-centric flow. Open a <code>.docx</code> from disk, edit it
+              with WYSIWYG fidelity, save it back as <code>.docx</code>. When
+              you want to co-edit, click <em>Share</em>, send a link, and
+              everyone on it edits live.
+            </p>
+            <p>
+              The editor is a fork of <a href="https://github.com/eigenpal/docx-editor" rel="noopener">eigenpal/docx-editor</a>
+              (MIT, React + ProseMirror, OOXML model preserved end-to-end). The
+              real-time gateway is original Go — a stateless y-websocket relay
+              with a pluggable host integration for storage.
+            </p>
+            <div class="callout">
+              <p><strong>Status</strong> — the fork is ahead of upstream on round-trip fidelity, header textboxes, VML preservation, multi-section preservation, and a few dozen smaller round-trip fixes. The Go backend just shipped M1 (in-memory inline host + WS broker + REST upload/download). Bundled Docker image lands with the first tagged release.</p>
+            </div>
+          </section>
+
+          <section id="features">
+            <h2>Features</h2>
+            <h3>Editing</h3>
+            <ul>
+              <li>Full WordprocessingML core — paragraphs, runs, tables, lists, sections, headers/footers, comments, tracked changes, hyperlinks, footnotes/endnotes, custom XML, math equations.</li>
+              <li>DrawingML rendering — pictures, modern shapes, textboxes (modern + VML fallback), <code>wpg:wgp</code> groups with per-child positioning, decorative <code>v:rect</code> / <code>v:oval</code> / <code>v:line</code>, connector lines, image hyperlinks.</li>
+              <li>Find &amp; replace, multi-column lists, multi-select indent / outdent, theme-color resolution, tab leaders, paragraph borders (<code>between</code> + <code>bar</code>), per-section column counts.</li>
+              <li>File properties dialog wired to <code>docProps/core.xml</code> — author, subject, keywords, last-modified all round-trip.</li>
+              <li>Export to PDF via the browser's print pipeline (saved file defaults to <code>&lt;document&gt;.pdf</code>).</li>
+            </ul>
+            <h3>Collaboration</h3>
+            <ul>
+              <li>Real-time co-editing through a Yjs + <code>y-prosemirror</code> binding over the standard y-websocket protocol.</li>
+              <li>Share dialog uploads the active <code>.docx</code> to the gateway, mints a doc ID, returns a shareable link.</li>
+              <li>Connection-state UX — Joining session loading panel, persistent reconnecting/disconnected banner, per-peer avatars and remote cursors.</li>
+            </ul>
+            <h3>Round-trip</h3>
+            <ul>
+              <li>Per-tag round-trip audit on every CI run. Current baseline: <strong>26 of 39 fixtures pristine</strong>; non-pristine fixtures only drop in a few non-VML edge cases now that the enricher captures the source envelope XML for verbatim replay.</li>
+              <li>Three-way fidelity comparison harness in CI — us vs LibreOffice (<code>soffice --convert-to docx</code>) vs OnlyOffice DocumentBuilder — runs on push to <code>main</code>. Fails the workflow if our pristine share drops below the floor.</li>
+            </ul>
+          </section>
+
+          <section id="architecture">
+            <h2>Architecture</h2>
+            <p>
+              Three layers, with the backend deliberately stateless. Document
+              persistence is delegated to a host integration (inline /
+              WOPI / JWT-API) so the gateway slots into existing storage
+              stacks rather than carrying its own.
+            </p>
+            <pre class="diagram"><code>Browser
+  ├─ &lt;DocxEditor/&gt; — React + ProseMirror, OOXML model preserved
+  ├─ y-prosemirror ySyncPlugin
+  └─ Y.Doc ⇄ y-websocket transport
+                  │
+                  ▼
+Go gateway (stateless)
+  ├─ WS broker — fans every binary frame to peers in the same room
+  ├─ In-memory Y.Doc per live session (dropped on last disconnect)
+  ├─ host.Integration interface
+  │    ├─ inline   — in-process map (the v0 share-link flow)
+  │    ├─ wopi     — full WOPI HTTP (future)
+  │    └─ jwtapi   — JWT-secured REST (future)
+  └─ Snapshot worker → host on room drain (Y.Doc → .docx)
+                  │
+                  ▼
+Storage host (external)
+  GetFile to seed a fresh session
+  PutFile to persist on drain</code></pre>
+            <p>
+              <strong>Stateless invariant.</strong> No database, no on-disk
+              update log. The only live state is the in-memory Y.Doc while a
+              session is active; when the last client disconnects it's gone,
+              and the next session re-seeds from the host.
+            </p>
+          </section>
+
+          <section id="setup">
+            <h2>Setup</h2>
+            <h3>Try the hosted demo</h3>
+            <p>
+              <a href="https://doc.schnsrw.live/" rel="noopener">doc.schnsrw.live</a> is
+              the single-user demo (no backend behind it). Drag a <code>.docx</code> on,
+              edit, save back to disk.
+            </p>
+            <h3>Self-host with Docker</h3>
+            <p>
+              The bundled image carries the editor SPA <em>and</em> the Go
+              gateway, so co-editing works out of the box on the host you
+              run it on.
+            </p>
+            <pre class="code"><code># Clone + build + run locally
+git clone https://github.com/schnsrw/docx
+cd docx
+docker compose up
+# open http://localhost:8080
+# upload a .docx, click Share, send the link
+
+# Dev mode (Vite hot reload + Go run)
+docker compose --profile dev up</code></pre>
+            <p>
+              After the first tagged release, <code>docker run -p 8080:8080
+              schnsrw/casual-editor:latest</code> will pull the pre-built
+              image from Docker Hub.
+            </p>
+            <h3>Develop on the editor directly</h3>
+            <pre class="code"><code>cd docx/docx-editor
+bun install
+bun run dev           # Vite at :5173
+bun run typecheck
+bun test
+bun run test:e2e</code></pre>
+            <h3>Develop on the gateway directly</h3>
+            <pre class="code"><code>cd docx/backend
+go vet ./...
+go test -race ./...
+go run ./cmd/gateway   # listens on :8080</code></pre>
+          </section>
+
+          <section id="configuration">
+            <h2>Configuration</h2>
+            <p>
+              All configuration is environment variables — no config files.
+              The bundled image picks safe defaults; override only what you
+              need.
+            </p>
+            <h3>Gateway (Go)</h3>
+            <dl class="config">
+              <dt><code>GATEWAY_ADDR</code></dt>
+              <dd>TCP address to bind to. <em>Default:</em> <code>:8080</code>.</dd>
+              <dt><code>STATIC_DIR</code></dt>
+              <dd>Directory to serve the editor SPA from. When set, the gateway also handles <code>/</code> (with an <code>index.html</code> SPA fallback) so the editor and API share one origin. The bundled image sets this to <code>/srv/static</code>. <em>Unset</em> in local dev where Vite serves the SPA on <code>:5173</code>.</dd>
+            </dl>
+            <h3>Editor build (Vite)</h3>
+            <dl class="config">
+              <dt><code>VITE_BACKEND</code></dt>
+              <dd>HTTP base for the gateway. Used by the share dialog's upload and the seed download in collab sessions. Unset in production builds → falls back to <code>window.location.origin</code> (the bundled-image story). Set this in dev when Vite is on <code>:5173</code> and the gateway on <code>:8080</code>.</dd>
+              <dt><code>VITE_COLLAB_ENABLED</code></dt>
+              <dd><code>true</code> to expose the Share button. The Pages demo builds with this off (no backend behind the demo origin); the Docker image sets it to <code>true</code>.</dd>
+            </dl>
+            <h3>Fidelity comparison CI</h3>
+            <dl class="config">
+              <dt><code>FIDELITY_FLOOR</code></dt>
+              <dd>Pristine-share floor for the three-way comparison harness (0–1). The workflow fails when our pristine share falls below this. <em>Default:</em> <code>0.5</code>. Raised as we close gap-matrix items.</dd>
+              <dt><code>LIBREOFFICE_BIN</code></dt>
+              <dd>Path to <code>soffice</code> if it's not on <code>PATH</code>. The harness probes a few defaults.</dd>
+              <dt><code>ONLYOFFICE_DOCBUILDER_IMAGE</code></dt>
+              <dd>Override the Docker image tag for OnlyOffice DocumentBuilder. <em>Default:</em> <code>onlyoffice/documentbuilder:latest</code>.</dd>
+            </dl>
+          </section>
+
+          <section id="fidelity">
+            <h2>Fidelity benchmark</h2>
+            <p>
+              The audit script tallies every OOXML element name in the input
+              <code>document.xml</code> against the re-serialized output;
+              tags whose count drops are silent round-trip losses.
+            </p>
+            <table class="benchmark">
+              <thead>
+                <tr><th>Engine</th><th>Approach</th><th>Pristine on our corpus</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Casual Editor</td>
+                  <td>Parse → model → serialize, with raw-XML envelope capture for drawings</td>
+                  <td>26 / 39 (≈ 67%); target ≥ 90% before desktop ship</td>
+                </tr>
+                <tr>
+                  <td>LibreOffice Online / Collabora</td>
+                  <td>Server-side C++ load + re-emit; mature, 25+ years</td>
+                  <td>Industry-reported ~96–98% on representative business docs (no direct benchmark on our corpus yet — wired into the CI harness)</td>
+                </tr>
+                <tr>
+                  <td>OnlyOffice DocumentBuilder</td>
+                  <td>Server-side C++ <code>x2t</code> converter; ~10 yrs</td>
+                  <td>Same band as LibreOffice on representative docs</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>
+              The point isn't to clear OnlyOffice's bar — those are mature
+              server-side renderers with years of OOXML coverage. The point
+              is to clear the bar for a <em>lightweight</em> alternative:
+              a couple of megabytes of JS + a small Go binary instead of
+              a 1+ GB native suite, while staying fidelity-honest on the
+              docs people actually edit.
+            </p>
+          </section>
+
+          <section id="faq">
+            <h2>FAQ</h2>
+            <dl class="faq">
+              <dt>Why a fork of eigenpal/docx-editor instead of building from scratch?</dt>
+              <dd>The OOXML model and round-trip pipeline are weeks of work to design well. eigenpal does both. Forking lets us send fidelity fixes back upstream while building the gateway + bundled distribution on top.</dd>
+
+              <dt>Why Go for the gateway and not Node or Rust?</dt>
+              <dd>Go's standard library is enough to speak the y-websocket protocol cleanly, the runtime is small (no Node-style memory tax for an idle session), and the binary statically links. The full reasoning lives in <a href="https://github.com/schnsrw/docx/blob/main/docs/05-backend-design.md" rel="noopener">docs/05-backend-design.md</a>.</dd>
+
+              <dt>Why no database?</dt>
+              <dd>The gateway is the collaboration layer, not the storage layer. Persistence is delegated through <code>host.Integration</code> — inline for the v0 share-link flow, WOPI / JWT-API for integration with existing document hosts. Keeps the gateway disposable.</dd>
+
+              <dt>Will Casual Editor support <code>.odt</code>, <code>.md</code>, <code>.txt</code>?</dt>
+              <dd>Planned, post-docx-fidelity-floor. Editing stays docx-only — other formats land via input parsers + output converters that bookend the canonical model. <code>.doc</code> is explicitly out of scope.</dd>
+
+              <dt>Is co-editing in the Pages demo?</dt>
+              <dd>No. Co-editing requires the gateway, and there's no backend behind <code>doc.schnsrw.live</code>. The bundled Docker image is the collab distribution. Tauri desktop is single-user only.</dd>
+
+              <dt>What's "pristine" mean in the round-trip audit?</dt>
+              <dd>Every OOXML element name in the input <code>document.xml</code> appears at least as many times in the re-serialized output. Tag-count parity, not byte-level — that's a stricter bar (semantically-equivalent XML can fail it) but a useful one for catching silent drops.</dd>
+            </dl>
+          </section>
+
+          <section id="roadmap">
+            <h2>Roadmap</h2>
+            <ol class="roadmap">
+              <li>
+                <strong>Closer to 90% pristine.</strong> Close the remaining
+                non-VML round-trip drops (<code>w:fldChar</code> in complex
+                fields, edge-case <code>w:rPr</code> / paragraph-properties
+                ordering, multi-section <code>w:pgNumType</code>). The audit
+                surfaces them per-fixture.
+              </li>
+              <li>
+                <strong>Y.Doc → .docx serializer worker pool (M2).</strong>
+                Right now the gateway re-serves the original upload on drain.
+                The next milestone runs a Bun worker pool that turns the live
+                CRDT state into a fresh <code>.docx</code> before snapshot.
+              </li>
+              <li>
+                <strong>JWT host integration.</strong> Authenticated
+                fetch / snapshot against an external host, configured via
+                env. WOPI follows.
+              </li>
+              <li>
+                <strong>Web Workers for parse / serialize.</strong> Move the
+                heavy paths off the main thread so 100+ page docs stop
+                stuttering the UI.
+              </li>
+              <li>
+                <strong>Floating-image text wrap.</strong> The biggest
+                remaining visual gap on the layout side.
+              </li>
+              <li>
+                <strong>.odt + .md + .txt converters.</strong> Lossy
+                input / output converters around the canonical docx model.
+                <code>.doc</code> stays out of scope.
+              </li>
+            </ol>
+          </section>
+        </article>
+      </div>
+    </main>
+
+    <footer class="foot">
+      <div class="foot__row">
+        <span class="foot__copyright">© <span class="year">2026</span> Sachin Sarwa</span>
+        <span class="foot__sep" aria-hidden="true">·</span>
+        <span class="foot__mono">Casual Editor — MIT</span>
+        <span class="foot__sep" aria-hidden="true">·</span>
+        <a class="foot__link" href="https://github.com/schnsrw/docx" rel="noopener">Source</a>
+        <span class="foot__sep" aria-hidden="true">·</span>
+        <a class="foot__link" href="/">Back home</a>
+      </div>
+    </footer>
+
+    <script>
+      document.querySelectorAll('.year').forEach((n) => (n.textContent = String(new Date().getFullYear())));
+    </script>
+  </body>
+</html>
