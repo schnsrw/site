@@ -375,7 +375,7 @@ body {
 .card__icon svg { width: 100%; height: 100%; }
 
 .card__icon--sheet { color: #217346; }
-.card__icon--doc   { color: #1a73e8; }
+.card__icon--doc   { color: #2563eb; }
 
 .card__title-block { flex: 1 1 auto; min-width: 0; }
 

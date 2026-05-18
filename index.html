@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Sachin Sarwa</title>
-    <meta name="description" content="Sachin Sarwa — software engineer. Building Casual Sheets, a docx editor, and tools for everyday work." />
+    <meta name="description" content="Sachin Sarwa — software engineer. Building Casual Sheets, Casual Editor, and tools for everyday work." />
     <meta name="author" content="Sachin Sarwa" />
     <meta name="theme-color" content="#0a0c10" />
     <meta name="color-scheme" content="dark light" />
@@ -172,7 +172,7 @@ docker compose up -d</code></pre>
             </footer>
           </article>
 
-          <!-- Docx Editor -->
+          <!-- Casual Editor -->
           <article class="card">
             <header class="card__head">
               <div class="card__icon card__icon--doc" aria-hidden="true">
@@ -186,40 +186,80 @@ docker compose up -d</code></pre>
                 </svg>
               </div>
               <div class="card__title-block">
-                <h3 class="card__title">Docx Editor</h3>
-                <p class="card__tag">Word-style document editor for the web</p>
+                <h3 class="card__title">Casual Editor</h3>
+                <p class="card__tag">Word-flavored web document editor</p>
               </div>
-              <span class="badge badge--wip">
+              <span class="badge badge--live">
                 <span class="badge__dot" aria-hidden="true"></span>
-                In progress
+                Live
               </span>
             </header>
 
             <p class="card__desc">
-              Same playbook as Casual Sheets, applied to documents: a
-              Word-feel rich-text editor in the browser with .docx
-              round-trip as the bar. Early days — foundation first,
-              polish layered on after.
+              A web document editor that feels like Word, not Google Docs —
+              ribbon, page layout, file-centric flow. Open a .docx, edit
+              with WYSIWYG fidelity, save it back as .docx. Real-time
+              co-editing via Yjs over a Go gateway; share a link, edit
+              live with anyone. Built on a fork of eigenpal/docx-editor
+              (MIT) — ProseMirror schema with the OOXML model preserved
+              end-to-end.
             </p>
 
             <ul class="bullets">
-              <li>Active development; no public demo yet</li>
-              <li>Aiming for tracked changes, comments, and full .docx fidelity</li>
-              <li>Same single-user-first roadmap; co-editing follows once stable</li>
+              <li>Per-tag round-trip audit on every CI run; current baseline 26/39 fixtures pristine, working to ≥ 90% before the desktop ship</li>
+              <li>Live co-editing — share dialog, presence avatars, remote cursors, loading/disconnected UX</li>
+              <li>Stateless Go backend (own y-websocket gateway) — no DB, no on-disk log; the inline host owns docs while a session is live</li>
+              <li>Three-way fidelity harness in CI: us vs LibreOffice vs OnlyOffice DocumentBuilder, scored per tag</li>
+              <li>Pluggable host integration (inline / WOPI / JWT-API) so the gateway slots into existing storage stacks</li>
             </ul>
 
             <div class="meta-strip">
-              <span><strong>Status</strong> — repository is private during early development; source link will be public once the foundation is stable.</span>
+              <span><strong>Open source</strong> — MIT on GitHub. Single-user demo on Pages; co-edit ships with the Docker image.</span>
+              <span><strong>Bundled image</strong> — <code>docker run -p 8080:8080 schnsrw/casual-editor:latest</code></span>
             </div>
+
+            <details class="howto">
+              <summary class="howto__summary">Self-host with Docker</summary>
+              <div class="howto__body">
+                <p class="howto__intro">
+                  Single image. Editor SPA + Go y-websocket gateway in one
+                  container. Anonymous co-edit at <code>/?room=&lt;docId&gt;</code>
+                  after uploading a .docx via the Share dialog.
+                </p>
+                <pre class="howto__code"><code># Try it
+docker run --rm -p 8080:8080 schnsrw/casual-editor:latest
+# open http://localhost:8080
+
+# Dev mode (Vite hot reload + Go run)
+docker compose --profile dev up</code></pre>
+                <p class="howto__hint">
+                  Full setup in the
+                  <a href="https://github.com/schnsrw/docx#local-dev" rel="noopener">README</a>
+                  and the
+                  <a href="https://github.com/schnsrw/docx/blob/main/docs/05-backend-design.md" rel="noopener">backend design doc</a>.
+                </p>
+              </div>
+            </details>
 
             <div class="chips">
               <span class="chip">TypeScript</span>
               <span class="chip">React</span>
-              <span class="chip">Vite</span>
+              <span class="chip">ProseMirror</span>
+              <span class="chip">Yjs</span>
+              <span class="chip">Go</span>
+              <span class="chip">Playwright</span>
+            </div>
+
+            <div class="card__badges">
+              <img alt="CI status" src="https://github.com/schnsrw/docx/actions/workflows/ci.yml/badge.svg?branch=main" />
+              <img alt="Deploy demo status" src="https://github.com/schnsrw/docx/actions/workflows/deploy-demo.yml/badge.svg?branch=main" />
             </div>
 
             <footer class="card__foot">
-              <span class="link link--muted">Demo coming soon</span>
+              <a class="link link--primary" href="https://doc.schnsrw.live/" rel="noopener">
+                Open app
+                <svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+              </a>
               <a class="link" href="https://github.com/schnsrw/docx" rel="noopener">Source</a>
             </footer>
           </article>
