@@ -3,7 +3,7 @@ title: "Round-trip fidelity"
 product: editor
 order: 30
 sourceUrl: "https://github.com/schnsrw/docx/blob/main/docs/ROUNDTRIP.md"
-updated: 2026-05-24T01:13:33.688Z
+updated: 2026-05-24T14:18:37.972Z
 summary: "Per-tag fidelity audit + three-way harness vs LibreOffice and OnlyOffice."
 ---
 How we make sure a `.docx` opened and saved by Casual Editor stays byte-faithful to Microsoft Word's representation.
@@ -63,14 +63,24 @@ Both are required before a fidelity PR lands. The pattern means a regression alw
 
 ---
 
-## Current status (2026-05-24)
+## Current status (re-audited 2026-05-25)
 
-**26 of 39 fixtures** round-trip with zero element drops (= 66.7%
-pristine). Target ≥ 90% before the desktop ship — the remaining 13
-non-pristine fixtures all sit in the `roundtrip-vml-cluster` bucket
-in [`internal/03-gap-matrix.md`](./internal/03-gap-matrix.md), which
-needs an enricher refactor before its drops can land without breaking
-the wpg-group rendering we already fixed.
+**44 of 44 fixtures** round-trip with zero per-tag drops = **100 % pristine**.
+Target was ≥ 90 % before the desktop ship — **floor cleared**.
+Five new fixtures added during the recent fidelity sweep
+(drawing-fidelity, table-overlap, table-column-resize,
+word-compat-closing-border, page-color) all land zero-drop on
+their first pass. The previously-deferred VML cluster (~108
+dropped tags across medical-incident-form + sds-real-world)
+closed earlier in commit `302c210` via raw-XML envelope capture
+in the enricher.
+
+What this *does not* claim: it's not byte-equal (attribute ordering
+etc. may differ — tag-count parity is stricter than byte-equal in
+practice but weaker than literal byte-equal), and it's not visual
+fidelity. The remaining open gaps in
+[`internal/03-gap-matrix.md`](./internal/03-gap-matrix.md) are about
+on-screen rendering, not whether bytes survive a load → save cycle.
 
 The full per-tag history (~2,400 dropped tags eliminated across 16+
 commits) is in `roundtrip-audit-report.md` in the editor repo root.

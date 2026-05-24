@@ -58,10 +58,10 @@ const jsonLd = {
   <section class="section" style="--product-accent: var(--editor); --product-accent-soft: var(--editor-soft);">
     <div class="container">
       <div class="fact-row">
-        <div><div class="fact__label">Pristine fixtures</div><div class="fact__value">26 / 39</div></div>
-        <div><div class="fact__label">Target</div><div class="fact__value">≥ 90%</div></div>
+        <div><div class="fact__label">Pristine fixtures</div><div class="fact__value">44 / 44</div></div>
+        <div><div class="fact__label">Floor cleared</div><div class="fact__value">100%</div></div>
         <div><div class="fact__label">Gateway LOC</div><div class="fact__value">~120</div></div>
-        <div><div class="fact__label">Templates</div><div class="fact__value">14</div></div>
+        <div><div class="fact__label">Co-edit smoke</div><div class="fact__value">5 s</div></div>
         <div><div class="fact__label">License</div><div class="fact__value">Apache-2.0 + MIT</div></div>
       </div>
     </div>
@@ -82,8 +82,8 @@ const jsonLd = {
           <p class="feature__body">
             ProseMirror schema + layout painter (forked from
             <code>eigenpal/docx-editor</code>, MIT) keeps Word's box model intact
-            through every edit. Round-trips audited per-tag — 26 of 39 fixtures
-            pristine, with a published gap matrix.
+            through every edit. Round-trips audited per-tag — <strong>44 of 44 fixtures
+            pristine = 100%</strong>, with a published gap matrix.
           </p>
         </article>
         <article class="feature">
@@ -98,12 +98,13 @@ const jsonLd = {
         </article>
         <article class="feature">
           <span class="feature__icon">⌥</span>
-          <h3 class="feature__title">Real-time co-editing</h3>
+          <h3 class="feature__title">Real-time co-editing, verified</h3>
           <p class="feature__body">
             Yjs + <code>y-prosemirror</code>. Each room is a single in-memory
-            <code>Y.Doc</code>. Snapshots produced by an offloaded worker on room
-            drain. Share-link self-contained model for v0; WOPI / JWT-API
-            integrations slot in behind one Go interface.
+            <code>Y.Doc</code>. A 5-second smoke test proves text fan-out,
+            awareness, and live filename rename across two peers — every
+            push runs it. Share-link model for v0; WOPI / JWT slot in
+            behind one Go interface.
           </p>
         </article>
         <article class="feature">

@@ -2,9 +2,9 @@
 import Base from '../layouts/Base.astro';
 import ProductCard from '../components/ProductCard.astro';
 
-const title = 'Casual Office — open-source Sheets, Editor, and Desktop';
+const title = 'Casual Office — the open-source office suite you actually own';
 const description =
-  'Casual Office — schnsrw.live. Open-source, real-time, file-centric productivity tools. Casual Sheets (Excel-flavored web spreadsheet), Casual Editor (Word-flavored web .docx editor), Casual Desktop (Tauri binaries — in progress). Self-hostable. Apache-2.0 / MIT.';
+  'Casual Office is a real-time, file-centric, open-source office suite. Casual Sheets (web .xlsx) and Casual Editor (web .docx) round-trip native Office files, sync via Yjs CRDT, and run as a single self-hostable container. MIT + Apache-2.0. No accounts, no SaaS, no upsell.';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -24,7 +24,8 @@ const jsonLd = {
       url: 'https://schnsrw.live/',
       name: 'Casual Office',
       alternateName: 'schnsrw.live',
-      description: 'Open-source, real-time, file-centric productivity tools by Sachin Sarwa.',
+      description:
+        'Open-source, real-time, file-centric office suite. Self-hostable. MIT + Apache-2.0.',
       publisher: { '@id': 'https://schnsrw.live/#person' },
       inLanguage: 'en',
     },
@@ -87,82 +88,69 @@ const jsonLd = {
   ],
 };
 
-// Quickstart docker-compose snippet. Held as a raw string and dropped
-// via set:html so Astro doesn't try to interpolate the `${VAR}` parts
-// as JS template-literal expressions.
+// Quickstart compose snippet. Held as a raw string and emitted via
+// set:html so Astro doesn't try to interpolate the `${VAR}` segments.
 const composeYml = `<code>services:
   app:
     image: schnsrw/casual-sheets:0.1
     ports: ['3000:3000']
     environment:
-      REDIS_URL: redis://redis:6379
       CASUAL_STORAGE: local
       CASUAL_LOCAL_PATH: /data/workbooks
-      CASUAL_ADMIN_USERNAME: admin
-      CASUAL_ADMIN_PASSWORD: \${ADMIN_PASSWORD}
-      CASUAL_JWT_SECRET: \${JWT_SECRET}
     volumes:
       - data:/data
-    depends_on:
-      redis: { condition: service_healthy }
-  redis:
-    image: redis:7.4-alpine
-    command: ['redis-server', '--appendonly', 'yes']
 volumes:
   data:</code>`;
 
-// FAQ content — collapsed via <details>. Plain markup so the source
-// stays scannable and we don't ship JS for what HTML does.
+// FAQ — collapsed via <details>. Plain markup so the source stays
+// scannable and we don't ship JS for what HTML already does.
 const faqs = [
   {
     q: 'What is Casual Office, in one sentence?',
-    a: 'An open-source set of real-time, file-centric productivity tools — a web spreadsheet, a web document editor, and a desktop binary — that you can use on the public demo or self-host in your own infrastructure.',
+    a: 'Two real office editors (sheets + docs) that open native Office files in the browser, sync in real time, and save back to the original byte-for-byte format — open source, MIT + Apache-2.0, self-hostable as one Docker container.',
   },
   {
-    q: 'Is this a SaaS?',
-    a: 'No. The hosted demos (sheet.schnsrw.live, doc.schnsrw.live) are public, but there are no accounts, no plans, and no upsell. Self-host via the published Docker images for any deployment beyond the demo.',
-  },
-  {
-    q: 'What\'s the licensing?',
-    a: 'Apache-2.0 for both products (and the Go backend for Casual Editor). The editor fork inside Casual Editor is MIT (eigenpal/docx-editor). No GPL/AGPL anywhere in the user-facing distribution.',
+    q: 'Is this a SaaS? Will it ever be?',
+    a: 'No. The public demos at sheet.schnsrw.live and doc.schnsrw.live have no accounts, no plans, no upsell. The project is permissively licensed and free forever in the editions you can see today.',
   },
   {
     q: 'How does the .xlsx / .docx round-trip work?',
-    a: 'The file is the source of truth. Open → in-memory snapshot → edit → re-serialize back to the original OOXML shape. Casual Sheets carries macros (vbaProject.bin) and pivot caches through byte-equal. Casual Editor scores 39/39 fixtures pristine in the per-tag fidelity audit.',
+    a: 'The file is the source of truth. Open → in-memory snapshot → edit → re-serialize back to the original OOXML shape. Casual Sheets carries macros (vbaProject.bin) and pivot caches through byte-equal. Casual Editor scores 44/44 fixtures pristine in the per-tag fidelity audit.',
   },
   {
-    q: 'Real-time co-editing — how?',
-    a: 'Yjs CRDT in the browser, Hocuspocus (Casual Sheets) or a custom Go y-websocket gateway (Casual Editor). State lives in memory while a session is active and goes away when everyone disconnects. Persistence is delegated to the host (WOPI or inline depending on version).',
+    q: 'Real-time co-editing — what powers it?',
+    a: 'Yjs (industry-standard CRDT) in the browser, paired with Hocuspocus (Casual Sheets) or a custom ~120-line Go y-websocket gateway (Casual Editor). State lives in memory while a session is active; persistence is delegated to the host integration.',
   },
   {
     q: 'Do I need a database?',
-    a: 'No, unless you opt in. The default storage is in-memory. Casual Sheets v0.1 ships local-FS, S3-compatible, and Postgres backends behind a single env var — pick what fits.',
+    a: 'No. Default storage is in-memory or local-filesystem. Casual Sheets v0.1 also ships S3-compatible and Postgres backends — pick one with a single env var or skip them entirely.',
   },
   {
-    q: 'Auth?',
-    a: 'JWT (HS256) when CASUAL_JWT_SECRET is set. Claims encode file binding + role + permissions + feature toggles. OIDC + SAML schema persists in v0.1; full enforcement lands in v0.2.',
+    q: 'Can I embed it in my own app?',
+    a: 'Yes. Casual Editor ships as React packages on npm (`@eigenpal/docx-js-editor`). The Go gateway is a separate process you can run alongside any backend that speaks HTTP. Casual Sheets is currently a hosted shell; embedding APIs are planned for v0.2.',
   },
   {
-    q: 'What about AI?',
-    a: 'Univer\'s command bus is extensible — plug your own model into either editor later. No pre-baked LLM bindings in the v0.x line.',
+    q: 'Where does it not fit?',
+    a: 'If you need server-side PDF rendering, document versioning out of the box, enterprise SSO, or compliance certifications, this is not that. It is a focused open-source pair of editors, not a managed compliance suite.',
   },
   {
     q: 'Why does this exist?',
-    a: 'A counter-position to megasuites. Each product is small enough to read end-to-end, every line is open, and the file format is owned by the user, not the vendor.',
+    a: 'A counterposition to megasuites. Each product is small enough to read end-to-end, every line is on GitHub, and the file format is owned by the user — not the vendor.',
   },
 ];
 ---
 <Base {title} {description} active="home" jsonLd={jsonLd}>
   <section class="hero">
     <div class="container hero__inner">
-      <span class="eyebrow">open source · self-host · v0.1.0</span>
+      <span class="eyebrow">open source · self-host · MIT + Apache-2.0</span>
       <h1 class="display">
-        Office, for the <em>open web.</em>
+        Office software you <em>actually own.</em>
       </h1>
       <p class="lede">
-        Real-time, file-centric, self-hostable. Open a <code>.xlsx</code> or
-        <code>.docx</code> in the browser, edit it like the web, save it back.
-        No accounts. No lock-in. No SaaS dependency.
+        Two real editors for <code>.xlsx</code> and <code>.docx</code> — in the
+        browser, with real-time multi-peer collab, that save back to the same
+        byte-for-byte file. Open source. Self-hostable. No accounts, no SaaS, no
+        upsell.
       </p>
 
       <div class="cmdline" role="group" aria-label="Run with Docker">
@@ -172,10 +160,22 @@ const faqs = [
       </div>
 
       <div class="row">
-        <a class="btn btn--primary" href="https://sheet.schnsrw.live/">Open Sheets demo →</a>
+        <a class="btn btn--primary" href="https://github.com/schnsrw" rel="noopener" target="_blank" aria-label="View on GitHub">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" style="margin-right: 6px; vertical-align: -2px;">
+            <path fill="currentColor" d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.3 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.7-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/>
+          </svg>
+          Star on GitHub
+        </a>
+        <a class="btn btn--ghost" href="https://sheet.schnsrw.live/">Open Sheets demo →</a>
         <a class="btn btn--ghost" href="https://doc.schnsrw.live/">Open Editor demo</a>
-        <a class="btn btn--ghost" href="https://github.com/schnsrw" rel="noopener" target="_blank">GitHub</a>
       </div>
+
+      <p class="hero__trust">
+        <span>Free forever</span><span aria-hidden="true">·</span>
+        <span>No tracking</span><span aria-hidden="true">·</span>
+        <span>No accounts</span><span aria-hidden="true">·</span>
+        <span>Your files, your server</span>
+      </p>
     </div>
   </section>
 
@@ -183,24 +183,24 @@ const faqs = [
     <div class="container">
       <div class="statline">
         <div class="stat">
+          <span class="stat__label">CASUAL EDITOR</span>
+          <span class="stat__value">44/44</span>
+          <span class="stat__hint">.docx fixtures · 100% round-trip</span>
+        </div>
+        <div class="stat">
           <span class="stat__label">CASUAL SHEETS</span>
           <span class="stat__value">v0.1.0</span>
-          <span class="stat__hint">WOPI · JWT · admin panel</span>
+          <span class="stat__hint">self-host shipped</span>
         </div>
         <div class="stat">
-          <span class="stat__label">CASUAL EDITOR</span>
-          <span class="stat__value">39/39</span>
-          <span class="stat__hint">.docx fidelity audit</span>
-        </div>
-        <div class="stat">
-          <span class="stat__label">TEST COVERAGE</span>
-          <span class="stat__value">417+</span>
-          <span class="stat__hint">unit + e2e across both</span>
+          <span class="stat__label">CO-EDIT</span>
+          <span class="stat__value">live</span>
+          <span class="stat__hint">verified end-to-end · Yjs CRDT</span>
         </div>
         <div class="stat">
           <span class="stat__label">LICENSE</span>
-          <span class="stat__value">Apache-2.0</span>
-          <span class="stat__hint">MIT on editor fork</span>
+          <span class="stat__value">MIT + Apache</span>
+          <span class="stat__hint">no AGPL, no copyleft surprises</span>
         </div>
       </div>
     </div>
@@ -210,8 +210,8 @@ const faqs = [
     <div class="container">
       <div class="section__head">
         <div>
-          <span class="eyebrow">three products, one suite</span>
-          <h2 class="title">A spreadsheet, an editor, a desktop binary.</h2>
+          <span class="eyebrow">two editors, one suite</span>
+          <h2 class="title">A spreadsheet and a document editor.<br/>Read every line.</h2>
         </div>
         <span class="section__hint">/products</span>
       </div>
@@ -225,7 +225,7 @@ const faqs = [
             '.xlsx · .ods · .csv · .tsv round-trip',
             'Pivot tables · 8 chart types · sparklines',
             'Real-time via Yjs + Hocuspocus',
-            'WOPI · JWT · admin panel (v0.1)',
+            'Self-host: memory · local · S3 · Postgres',
           ]}
           status="v0.1.0 · 357 e2e"
           href="/casual-sheets/"
@@ -236,14 +236,14 @@ const faqs = [
           slug="editor"
           name="Casual Editor"
           role="WORD-FLAVORED .DOCX EDITOR"
-          body="Open .docx with WYSIWYG fidelity. ProseMirror with an OOXML-preserving model; a stateless Go gateway speaks the y-websocket protocol in ~120 lines. Document persistence delegated to a host integration."
+          body="Open .docx in the browser with WYSIWYG fidelity. Fork of eigenpal/docx-editor on top of ProseMirror with an OOXML-preserving model. The stateless Go gateway speaks the y-websocket protocol in roughly 120 lines."
           features={[
-            '.docx round-trip · 39/39 fixtures pristine',
-            'ProseMirror + OOXML model',
+            '.docx round-trip · 44/44 fixtures pristine',
+            'ProseMirror + OOXML model · page color · table fidelity',
             'Yjs + Go y-websocket gateway',
-            'Three-way fidelity harness in CI',
+            'Co-edit verified end-to-end (smoke + tests)',
           ]}
-          status="public preview"
+          status="M1 backend live · public preview"
           href="/casual-editor/"
           accent="var(--editor)"
           accentSoft="var(--editor-soft)"
@@ -251,15 +251,15 @@ const faqs = [
         <ProductCard
           slug="desktop"
           name="Casual Desktop"
-          role="TAURI BINARIES · IN PROGRESS"
-          body="A native binary for macOS, Linux, and Windows that reuses the Casual Editor and Casual Sheets web cores verbatim. Single-user, offline. First binary ships once both web fidelity scores cross 90%."
+          role="TAURI BINARIES · PAUSED"
+          body="A native binary for macOS, Linux, and Windows that would reuse the web cores verbatim. Paused until both web editors reach feature parity; the work is queued, not abandoned."
           features={[
             'Tauri shell · reuses the web cores',
             'macOS · Linux · Windows',
             'Single-user · offline',
-            'Ships when fidelity crosses 90%',
+            'Resumes after web v1',
           ]}
-          status="early scaffolding"
+          status="paused · queued"
           href="/casual-desktop/"
           accent="var(--desktop)"
           accentSoft="var(--desktop-soft)"
@@ -272,64 +272,66 @@ const faqs = [
     <div class="container">
       <div class="section__head">
         <div>
-          <span class="eyebrow">how it works</span>
-          <h2 class="title">Files, not formats.<br/>State, not storage.</h2>
+          <span class="eyebrow">why bother</span>
+          <h2 class="title">What you don't get<br/>from a 700&#8209;MB SaaS dashboard.</h2>
         </div>
-        <span class="section__hint">/architecture</span>
+        <span class="section__hint">/why</span>
       </div>
       <div class="feature-grid feature-grid--four" style="--product-accent: var(--accent); --product-accent-soft: var(--accent-soft);">
         <article class="feature">
-          <span class="feature__icon">F</span>
-          <h3 class="feature__title">File-centric</h3>
+          <span class="feature__icon">①</span>
+          <h3 class="feature__title">The file is the source of truth</h3>
           <p class="feature__body">
-            Native Office formats are the source of truth. Open, edit, save back —
-            never an export-only model. Both editors round-trip the actual binary,
-            with audited fidelity scores.
+            Open <code>.xlsx</code> or <code>.docx</code>, edit, save back to the
+            same bytes. The audit harness counts every OOXML tag round-trip;
+            Casual Editor is at <strong>100% on 44 fixtures</strong>.
           </p>
         </article>
         <article class="feature">
-          <span class="feature__icon">S</span>
-          <h3 class="feature__title">Stateless backends</h3>
+          <span class="feature__icon">②</span>
+          <h3 class="feature__title">Stateless backend</h3>
           <p class="feature__body">
-            No database, no on-disk update log in the real-time service. State lives
-            only in memory while a session is active. The host owns persistence
-            (WOPI in v1+, inline in v0).
+            No database, no on-disk update log in the real-time path. Session
+            state lives in memory while peers are connected, then drains to
+            the host integration on the last disconnect.
           </p>
         </article>
         <article class="feature">
-          <span class="feature__icon">O</span>
-          <h3 class="feature__title">Open source</h3>
+          <span class="feature__icon">③</span>
+          <h3 class="feature__title">Real-time, actually working</h3>
           <p class="feature__body">
-            Apache-2.0 / MIT throughout. Public demos at <code>sheet.schnsrw.live</code>
-            and <code>doc.schnsrw.live</code>; self-host via the published Docker
-            images. Every line on GitHub.
+            Yjs CRDT in the browser, a custom <code>~120 LOC</code> Go gateway
+            on the server. Multi-peer text, formatting, comments, presence
+            cursors, even live document rename — verified by an end-to-end
+            smoke that runs in five seconds.
           </p>
         </article>
         <article class="feature">
-          <span class="feature__icon">R</span>
-          <h3 class="feature__title">Real-time when it earns it</h3>
+          <span class="feature__icon">④</span>
+          <h3 class="feature__title">One container, one port</h3>
           <p class="feature__body">
-            Single-user demos on GitHub Pages; real-time co-edit ships in the Docker
-            image, not the React component. Same web build across distribution
-            shapes — different boundaries.
+            Multi-arch images (amd64 + arm64) on Docker Hub. OCI labels, SBOM
+            and provenance attestations. <code>docker run</code> and you're
+            running both the editor and the WS gateway behind one URL.
           </p>
         </article>
         <article class="feature">
-          <span class="feature__icon">D</span>
-          <h3 class="feature__title">Docker-shaped</h3>
+          <span class="feature__icon">⑤</span>
+          <h3 class="feature__title">Permissive, forever</h3>
           <p class="feature__body">
-            Multi-arch images on Docker Hub (amd64 + arm64). OCI-labelled, SBOM
-            and provenance attestations in the manifest. One container, one port,
-            embedded WebSocket gateway.
+            MIT on the editor packages, Apache-2.0 on the backend. No
+            copyleft, no AGPL trapdoor, no "open core" features hidden behind
+            a paid tier. Fork it, embed it, ship it inside whatever you're
+            building.
           </p>
         </article>
         <article class="feature">
-          <span class="feature__icon">J</span>
-          <h3 class="feature__title">JWT-secured</h3>
+          <span class="feature__icon">⑥</span>
+          <h3 class="feature__title">Built in the open</h3>
           <p class="feature__body">
-            Optional JWT auth gates the WOPI surface. Claims encode file binding,
-            role, per-flag permissions, and feature toggles — pluggable into
-            existing identity systems via signed tokens.
+            Every commit, every fixture, every failing-then-passing test
+            visible on GitHub. The roadmap is a doc, not a slide deck. Pick
+            an issue, open a PR, the bar is "did the suite stay green."
           </p>
         </article>
       </div>
@@ -341,15 +343,59 @@ const faqs = [
       <div class="section__head">
         <div>
           <span class="eyebrow">quickstart</span>
-          <h2 class="title">A real deployment in 20 lines.</h2>
+          <h2 class="title">From zero to a running editor in one command.</h2>
         </div>
-        <span class="section__hint">docker-compose.yml</span>
+        <span class="section__hint">docker</span>
       </div>
       <pre class="code-block" set:html={composeYml}></pre>
       <div class="row" style="margin-top: 20px;">
-        <a class="btn btn--ghost" href="/docs/sheets/self-hosting/">Self-hosting docs →</a>
-        <a class="btn btn--ghost" href="/docs/sheets/customization-auth/">JWT auth guide</a>
-        <a class="btn btn--ghost" href="/docs/sheets/customization-webhooks/">Webhook docs</a>
+        <a class="btn btn--ghost" href="/docs/sheets/self-hosting/">Self-hosting guide →</a>
+        <a class="btn btn--ghost" href="/docs/sheets/customization-auth/">Optional JWT auth</a>
+        <a class="btn btn--ghost" href="/docs/">All docs</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--community">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <span class="eyebrow">community-first</span>
+          <h2 class="title">Help shape v1.</h2>
+        </div>
+        <span class="section__hint">/contribute</span>
+      </div>
+      <div class="community">
+        <div class="community__card">
+          <span class="community__num">★</span>
+          <h3 class="community__title">Star the repos</h3>
+          <p class="community__body">
+            Stars are the only signal that says "keep going." Two repos:
+            <a href="https://github.com/schnsrw/docx" rel="noopener" target="_blank">docx</a>
+            for Casual Editor,
+            <a href="https://github.com/schnsrw/sheets" rel="noopener" target="_blank">sheets</a>
+            for Casual Sheets.
+          </p>
+        </div>
+        <div class="community__card">
+          <span class="community__num">✎</span>
+          <h3 class="community__title">Open an issue</h3>
+          <p class="community__body">
+            Real-world <code>.docx</code> or <code>.xlsx</code> that breaks?
+            Attach the file. Every regression fixture in the audit started
+            life as someone's broken document.
+          </p>
+        </div>
+        <div class="community__card">
+          <span class="community__num">⤴</span>
+          <h3 class="community__title">Send a PR</h3>
+          <p class="community__body">
+            The bar is the green CI suite plus a fixture that pins the
+            change. Both repos have <code>CONTRIBUTING.md</code>; the
+            <a href="https://github.com/schnsrw/docx/issues" rel="noopener" target="_blank">issue trackers</a>
+            tag <code>good-first-issue</code>.
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -378,18 +424,20 @@ const faqs = [
     <div class="container container--narrow">
       <h2 class="display display--small">Files in.<br/><em>Files out.</em></h2>
       <p class="lede">
-        Casual Office is a small office suite, built like infrastructure. Open,
-        composable, file-shaped — closer to a UNIX tool than a SaaS product.
+        Casual Office is a small office suite built like infrastructure.
+        Composable, file-shaped, permissive — closer to a UNIX tool than
+        a SaaS product.
       </p>
       <div class="row" style="margin-top: 8px;">
-        <a class="btn btn--primary" href="/docs/">Documentation →</a>
+        <a class="btn btn--primary" href="https://github.com/schnsrw" rel="noopener" target="_blank">Browse on GitHub →</a>
+        <a class="btn btn--ghost" href="/docs/">Documentation</a>
         <a class="btn btn--ghost" href="/changelog/">Changelog</a>
-        <a class="btn btn--ghost" href="https://github.com/schnsrw" rel="noopener" target="_blank">GitHub</a>
       </div>
       <div class="row gap-sm" style="margin-top: 22px;">
         <span class="chip">Open source</span>
         <span class="chip">Self-hostable</span>
-        <span class="chip">Apache-2.0 / MIT</span>
+        <span class="chip">MIT + Apache-2.0</span>
+        <span class="chip">Real-time, verified</span>
       </div>
     </div>
   </section>
@@ -427,8 +475,25 @@ const faqs = [
     .cmdline__hint { border-left: 0; padding-left: 0; }
   }
 
+  /* Trust strip directly under the hero CTAs — small, dim, monospace.
+     Carries the "free forever / no tracking / no SaaS" promise that's
+     the entire point of the project. */
+  .hero__trust {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 22px 0 0;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.03em;
+  }
+  .hero__trust span[aria-hidden] {
+    opacity: 0.5;
+  }
+
   /* Stats row — four narrow columns immediately below the hero,
-     loud monospace value, dim mono label. */
+     loud display value, dim mono label. */
   .section--stats { padding: 24px 0 48px; }
   .statline {
     display: grid;
@@ -477,69 +542,81 @@ const faqs = [
   @media (max-width: 620px) { .feature-grid--four { grid-template-columns: 1fr; } }
 
   /* Quickstart code block — tighter than docs <pre>, fixed-width font,
-     soft warm background. */
+     no scrollbar gymnastics. */
   .code-block {
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 12px;
+    padding: 18px 22px;
     font-family: var(--font-mono);
-    font-size: 13px;
+    font-size: 12.5px;
+    color: var(--text);
+    overflow-x: auto;
     line-height: 1.6;
+  }
+  .code-block code {
+    background: transparent;
+    padding: 0;
+    border: 0;
+    color: inherit;
+    font-size: inherit;
+    white-space: pre;
+  }
+
+  /* Community section — three cards with a numeric-ish glyph that
+     reinforces the "this is a checklist of how to participate" vibe.
+     Matches the per-product card metrics without copying them. */
+  .section--community {
+    background: linear-gradient(180deg, transparent 0%, var(--surface) 100%);
+  }
+  .community {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 24px;
+  }
+  @media (max-width: 920px) { .community { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 620px) { .community { grid-template-columns: 1fr; } }
+  .community__card {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    padding: 22px 26px;
-    overflow-x: auto;
-    color: var(--text);
-    white-space: pre;
-    margin: 0;
-  }
-  .code-block code { background: transparent; border: 0; padding: 0; color: inherit; font-size: inherit; }
-
-  /* FAQ collapses. Plain markup; one extra rule for the disclosure arrow. */
-  .faq {
+    padding: 24px 22px;
     display: flex;
     flex-direction: column;
-    gap: 0;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
+    gap: 10px;
+    transition: border-color 120ms ease;
   }
-  .faq__item {
-    border-bottom: 1px solid var(--border);
-  }
-  .faq__item:last-child { border-bottom: 0; }
-  .faq__q {
-    cursor: pointer;
-    padding: 16px 22px;
-    font-weight: 600;
-    color: var(--text);
-    list-style: none;
-    display: flex;
+  .community__card:hover { border-color: var(--border-strong); }
+  .community__num {
+    display: inline-flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    font-size: 15px;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 18px;
+    font-weight: 700;
+    font-family: var(--font-display);
   }
-  .faq__q::-webkit-details-marker { display: none; }
-  .faq__q::after {
-    content: '+';
-    font-family: var(--font-mono);
-    color: var(--text-muted);
-    font-size: 20px;
-    transition: transform 160ms ease-out;
+  .community__title {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text);
   }
-  .faq__item[open] .faq__q::after { transform: rotate(45deg); }
-  .faq__item[open] .faq__q { color: var(--accent-strong); }
-  .faq__a {
-    padding: 0 22px 18px;
+  .community__body {
+    font-size: 14px;
     color: var(--text-soft);
-    font-size: 14.5px;
-    line-height: 1.65;
+    line-height: 1.6;
+    margin: 0;
   }
-
-  /* Echo section — repeat the hero motif at the foot. */
-  .section--echo { padding: 96px 0 32px; text-align: center; }
-  .section--echo .display { margin: 0 auto 18px; max-width: 18ch; }
-  .section--echo .lede { margin: 0 auto 28px; }
-  .section--echo .row { justify-content: center; }
-  .display--small { font-size: clamp(40px, 6vw, 64px); }
+  .community__body a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
 </style>
