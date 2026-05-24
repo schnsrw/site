@@ -1,0 +1,31 @@
+# schnsrw.live — open to search engines + AI crawlers.
+# The site is a portfolio of open-source projects; indexing helps
+# users + assistants discover them.
+
+User-agent: *
+Allow: /
+
+# Explicit opt-in for major AI crawlers (some respect this even when
+# `*` already allows). Listed individually so the intent is unambiguous.
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+Sitemap: https://schnsrw.live/sitemap.xml

@@ -3,17 +3,30 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Sachin Sarwa</title>
-    <meta name="description" content="Sachin Sarwa — software engineer. Building Casual Sheets, Casual Editor, and tools for everyday work." />
+    <title>Sachin Sarwa — Casual Sheets · Casual Editor · Casual Desktop</title>
+    <meta name="description" content="Sachin Sarwa — software engineer. Building Casual Sheets, Casual Editor, and Casual Desktop — open-source, real-time, file-centric productivity tools." />
     <meta name="author" content="Sachin Sarwa" />
-    <meta name="theme-color" content="#0a0c10" />
-    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#fafaf7" />
+    <meta name="color-scheme" content="light" />
 
-    <meta property="og:title" content="Sachin Sarwa" />
-    <meta property="og:description" content="Software engineer. Building tools for everyday work." />
+    <!-- Open Graph -->
+    <meta property="og:title" content="Sachin Sarwa — Casual Sheets · Editor · Desktop" />
+    <meta property="og:description" content="Open-source, real-time, file-centric productivity tools — a web spreadsheet that feels like Excel, a web editor that feels like Word, a desktop binary in progress." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://schnsrw.live/" />
     <meta property="og:site_name" content="schnsrw.live" />
+    <meta property="og:image" content="https://schnsrw.live/favicon.svg" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter / X card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Sachin Sarwa — Casual Sheets · Editor · Desktop" />
+    <meta name="twitter:description" content="Open-source, real-time, file-centric productivity tools. Excel-flavored web spreadsheet · Word-flavored web editor · desktop binary in progress." />
+    <meta name="twitter:image" content="https://schnsrw.live/favicon.svg" />
+
+    <!-- Discoverability -->
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="keywords" content="Casual Sheets, Casual Editor, Casual Desktop, web spreadsheet, web document editor, .xlsx editor, .docx editor, real-time collaboration, Yjs, ProseMirror, Univer, OOXML, Go, TypeScript, open source" />
 
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="canonical" href="https://schnsrw.live/" />
@@ -21,13 +34,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;500&display=swap"
     />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="bg-grain" aria-hidden="true"></div>
-    <div class="bg-glow" aria-hidden="true"></div>
+    <div class="bg-aurora" aria-hidden="true"></div>
 
     <nav class="nav" aria-label="Primary">
       <a class="nav__brand" href="/">
@@ -35,9 +47,9 @@
         Sachin Sarwa
       </a>
       <div class="nav__links">
-        <a class="nav__link" href="/casual-sheets/">Sheets</a>
-        <a class="nav__link" href="/casual-editor/">Editor</a>
-        <a class="nav__link" href="/casual-desktop/">Desktop</a>
+        <a class="nav__link" href="#work">Work</a>
+        <a class="nav__link" href="#recent">Recent</a>
+        <a class="nav__link" href="#stack">Stack</a>
         <a class="nav__link" href="#contact">Contact</a>
         <a class="nav__link" href="https://github.com/schnsrw" rel="noopener">GitHub</a>
       </div>
@@ -48,18 +60,21 @@
       <header class="hero">
         <div class="hero__status">
           <span class="hero__dot" aria-hidden="true"></span>
-          Available for new work
+          Three projects shipping in parallel
         </div>
-        <h1 class="hero__name">Sachin Sarwa</h1>
-        <p class="hero__role">Software engineer</p>
+        <h1 class="hero__name hero__name--serif">
+          Tools for the way you<br />
+          <em class="hero__name-em">actually work.</em>
+        </h1>
+        <p class="hero__role">Sachin Sarwa · Software engineer</p>
         <p class="hero__tag">
-          I build practical tools for everyday work — spreadsheets,
-          documents, real-time collaboration. Code that ships and stays
-          shipped.
+          A web spreadsheet that feels like Excel. A web editor that feels like
+          Word. A desktop binary on the way. Open source, file-centric, real-time
+          when you want it — and they save back to the formats you already have.
         </p>
         <div class="hero__cta">
           <a class="btn btn--primary" href="#work">
-            <span>View projects</span>
+            <span>See the work</span>
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
           </a>
           <a class="btn btn--ghost" href="https://github.com/schnsrw" rel="noopener">
@@ -72,35 +87,67 @@
             <span class="quick__icon" style="color:#217346" aria-hidden="true">▦</span>
             <span class="quick__body">
               <span class="quick__title">Casual Sheets</span>
-              <span class="quick__sub">Open the live demo</span>
+              <span class="quick__sub">Open live demo →</span>
             </span>
           </a>
           <a class="quick" href="https://doc.schnsrw.live/" rel="noopener">
             <span class="quick__icon" style="color:#2563eb" aria-hidden="true">¶</span>
             <span class="quick__body">
               <span class="quick__title">Casual Editor</span>
-              <span class="quick__sub">Open the live demo</span>
+              <span class="quick__sub">Open live demo →</span>
             </span>
           </a>
           <span class="quick quick--soon">
             <span class="quick__icon" style="color:#0f172a" aria-hidden="true">⌘</span>
             <span class="quick__body">
               <span class="quick__title">Casual Desktop</span>
-              <span class="quick__sub">Coming soon</span>
+              <span class="quick__sub">In progress</span>
             </span>
           </span>
         </div>
       </header>
 
+      <!-- ───────────── AT A GLANCE ───────────── -->
+      <section class="section section--stats" aria-labelledby="stats-title">
+        <h2 id="stats-title" class="visually-hidden">At a glance</h2>
+        <div class="stats">
+          <div class="stat">
+            <div class="stat__num">357</div>
+            <div class="stat__label">Sheets e2e tests · all green</div>
+          </div>
+          <div class="stat">
+            <div class="stat__num">14</div>
+            <div class="stat__label">Editor templates · 4 categories</div>
+          </div>
+          <div class="stat">
+            <div class="stat__num">26<span class="stat__num-soft">/39</span></div>
+            <div class="stat__label">.docx fixtures round-trip pristine</div>
+          </div>
+          <div class="stat">
+            <div class="stat__num">0</div>
+            <div class="stat__label">Databases · stateless backends</div>
+          </div>
+          <div class="stat">
+            <div class="stat__num">3</div>
+            <div class="stat__label">File formats round-tripped<br />(.xlsx, .ods, .docx)</div>
+          </div>
+          <div class="stat">
+            <div class="stat__num">100%</div>
+            <div class="stat__label">Open source · Apache-2.0 / MIT</div>
+          </div>
+        </div>
+      </section>
+
       <!-- ───────────── PROJECTS ───────────── -->
       <section id="work" class="section" aria-labelledby="work-title">
         <div class="section__head">
-          <h2 id="work-title" class="section__title">Work</h2>
-          <p class="section__sub">Currently shipping.</p>
+          <p class="section__eyebrow">Work</p>
+          <h2 id="work-title" class="section__title">Three shipping projects.</h2>
+          <p class="section__sub">All file-centric. All open source. Real-time only where it earns the complexity.</p>
         </div>
 
         <div class="grid">
-          <!-- Casual Sheets -->
+          <!-- ─── Casual Sheets ─── -->
           <article class="card">
             <header class="card__head">
               <div class="card__icon card__icon--sheet" aria-hidden="true">
@@ -125,29 +172,48 @@
               </div>
               <span class="badge badge--live">
                 <span class="badge__dot" aria-hidden="true"></span>
-                Live
+                v0.0.6 live
               </span>
             </header>
 
             <p class="card__desc">
-              A web spreadsheet that feels like Excel, not Google Sheets —
-              ribbon, formula bar, file-centric flow. Open, edit, and save
-              .xlsx, .ods, .csv, and .tsv with full round-trip fidelity.
-              Real-time co-editing with live cursors, presence avatars, and
-              password-protected rooms. Built on Univer OSS.
+              A web spreadsheet that feels like Excel — ribbon, formula bar,
+              file-centric flow. Open and save <strong>.xlsx</strong>,
+              <strong>.ods</strong>, <strong>.csv</strong>, <strong>.tsv</strong>
+              with full round-trip fidelity, parsed entirely in a Web Worker so
+              the main thread never blocks on multi-MB files. Real-time
+              co-editing with presence avatars, live cursors, and password-protected
+              rooms ships in the Docker image. Built on Univer OSS with a custom
+              Office-style shell layered on top.
             </p>
 
+            <div class="hl-row">
+              <div class="hl">
+                <div class="hl__num">357</div>
+                <div class="hl__label">Playwright tests</div>
+              </div>
+              <div class="hl">
+                <div class="hl__num">11</div>
+                <div class="hl__label">templates with previews</div>
+              </div>
+              <div class="hl">
+                <div class="hl__num">8</div>
+                <div class="hl__label">chart types · trendlines</div>
+              </div>
+            </div>
+
             <ul class="bullets">
-              <li>180+ end-to-end tests; CI on every push</li>
-              <li>Live co-editing — share dialog, presence avatars, live cursors with name labels, live-typing ghost</li>
-              <li>Worker-side xlsx parse + export; main bundle 6.3 MB; lazy plugin chunks</li>
-              <li>Excel-paste preservation (merges, column widths, row heights); range picker; toolbar overflow</li>
-              <li>Tables with themes, freeze panes, comments, hyperlinks, outline groups, drag-fill</li>
+              <li><strong>Home template gallery</strong> — 11 real .xlsx templates with thumbnail previews, search + categories, Recent files from IndexedDB</li>
+              <li><strong>Analysis</strong> — Pivot tables (with drill-down + Refresh), Sparklines (line / column / win-loss), Name Manager, Flash Fill, Goal Seek</li>
+              <li><strong>Co-edit</strong> — share dialog, presence avatars, live cursors with name labels, live-typing ghosts, full structure sync</li>
+              <li><strong>Version history</strong> — auto-snapshots every ~10 min while dirty + manual "Save version…" entries, preview + Restore (with undo crumb)</li>
+              <li><strong>.xlsm passthrough</strong> — VBA macros round-trip byte-equal so macro-bearing workbooks survive load/save</li>
+              <li><strong>Dark theme</strong>, autosave, 40+ Excel shortcuts, Print Area, Paste Special, file dialogs</li>
             </ul>
 
             <div class="meta-strip">
-              <span><strong>Open source</strong> — Apache-2.0 on GitHub. Single-user demo on Pages; co-edit ships with the Docker image.</span>
-              <span><strong>v0.0.4 live on Docker Hub</strong> — <code>docker run -p 3000:3000 schnsrw/casual-sheets:0.0.4</code></span>
+              <span><strong>v0.0.6 on Docker Hub</strong> — <code>docker run -p 3000:3000 schnsrw/casual-sheets:0.0.6</code></span>
+              <span><strong>Single-user demo on Pages</strong> · <strong>co-edit in the Docker image</strong> · Apache-2.0</span>
             </div>
 
             <details class="howto">
@@ -179,12 +245,14 @@ docker compose up -d</code></pre>
               <span class="chip">Vite</span>
               <span class="chip">Univer OSS</span>
               <span class="chip">ExcelJS</span>
+              <span class="chip">Hocuspocus / Yjs</span>
               <span class="chip">Playwright</span>
             </div>
 
             <div class="card__badges">
-              <img alt="CI status" src="https://github.com/schnsrw/sheets/actions/workflows/ci.yml/badge.svg?branch=main" />
-              <img alt="Deploy status" src="https://github.com/schnsrw/sheets/actions/workflows/deploy-pages.yml/badge.svg?branch=main" />
+              <img alt="CI status" loading="lazy" src="https://github.com/schnsrw/sheets/actions/workflows/ci.yml/badge.svg?branch=main" />
+              <img alt="Deploy status" loading="lazy" src="https://github.com/schnsrw/sheets/actions/workflows/deploy-pages.yml/badge.svg?branch=main" />
+              <img alt="Docker pulls" loading="lazy" src="https://img.shields.io/docker/pulls/schnsrw/casual-sheets?logo=docker&label=pulls" />
             </div>
 
             <footer class="card__foot">
@@ -197,7 +265,7 @@ docker compose up -d</code></pre>
             </footer>
           </article>
 
-          <!-- Casual Editor -->
+          <!-- ─── Casual Editor ─── -->
           <article class="card">
             <header class="card__head">
               <div class="card__icon card__icon--doc" aria-hidden="true">
@@ -216,31 +284,48 @@ docker compose up -d</code></pre>
               </div>
               <span class="badge badge--live">
                 <span class="badge__dot" aria-hidden="true"></span>
-                Live
+                Live demo
               </span>
             </header>
 
             <p class="card__desc">
-              A web document editor that feels like Word, not Google Docs —
-              ribbon, page layout, file-centric flow. Open a .docx, edit
-              with WYSIWYG fidelity, save it back as .docx. Real-time
-              co-editing via Yjs over a Go gateway; share a link, edit
-              live with anyone. Built on a fork of eigenpal/docx-editor
-              (MIT) — ProseMirror schema with the OOXML model preserved
-              end-to-end.
+              A web document editor that feels like Word — ribbon, page layout,
+              file-centric flow. Open a <strong>.docx</strong>, edit with
+              WYSIWYG fidelity, save it back. The new home page lands on a
+              Google-Docs-style template gallery with real first-page PNG
+              previews; pick one or open your own. Real-time co-editing
+              over a stateless Go gateway speaking the y-websocket protocol.
+              Forked from <code>eigenpal/docx-editor</code> (MIT) — ProseMirror
+              schema with the OOXML model preserved end-to-end.
             </p>
 
+            <div class="hl-row">
+              <div class="hl">
+                <div class="hl__num">14</div>
+                <div class="hl__label">templates · 4 categories</div>
+              </div>
+              <div class="hl">
+                <div class="hl__num">26<span class="hl__num-soft">/39</span></div>
+                <div class="hl__label">fixtures round-trip pristine</div>
+              </div>
+              <div class="hl">
+                <div class="hl__num">200+</div>
+                <div class="hl__label">Playwright tests</div>
+              </div>
+            </div>
+
             <ul class="bullets">
-              <li>Per-tag round-trip audit on every CI run; current baseline 26/39 fixtures pristine, working to ≥ 90% before the desktop ship</li>
-              <li>Live co-editing — share dialog, presence avatars, remote cursors, loading/disconnected UX</li>
-              <li>Stateless Go backend (own y-websocket gateway) — no DB, no on-disk log; the inline host owns docs while a session is live</li>
-              <li>Three-way fidelity harness in CI: us vs LibreOffice vs OnlyOffice DocumentBuilder, scored per tag</li>
-              <li>Pluggable host integration (inline / WOPI / JWT-API) so the gateway slots into existing storage stacks</li>
+              <li><strong>Template gallery home</strong> — Resume, Cover letter, Meeting notes, Project proposal, Memo, Status report, Press release, Letter, Travel itinerary, Recipe, Essay, Lab report, Syllabus, Sample · all authored as real .docx with LibreOffice-rendered previews</li>
+              <li><strong>Word-compat opt-in flag</strong> — gated heuristics that match Word but diverge from strict ECMA-376 (e.g. last-row closing border on tables, issue #395)</li>
+              <li><strong>Per-tag round-trip audit in CI</strong> — every push runs the 39-fixture corpus through parse → serialize and reports element-name drops; closing the VML cluster takes us past 90%</li>
+              <li><strong>Three-way fidelity harness</strong> — us vs LibreOffice vs OnlyOffice DocumentBuilder, scored per tag, CI fails if regressions push fidelity below the configured floor</li>
+              <li><strong>Stateless Go backend</strong> — own y-websocket protocol implementation in ~120 LOC, no DB, no on-disk update log; the host owns the doc, we just orchestrate live editing</li>
+              <li><strong>Pluggable host integration</strong> — <code>inline</code> (v0 self-contained) / <code>WOPI</code> (host integration v1+) / future <code>JWT-API</code> behind one Go interface</li>
             </ul>
 
             <div class="meta-strip">
-              <span><strong>Open source</strong> — Apache-2.0 on GitHub. Single-user demo on Pages; bundled co-edit image lands with the first tagged release.</span>
-              <span><strong>Self-host</strong> — clone, <code>docker compose up</code>, open <code>http://localhost:8080</code></span>
+              <span><strong>Open source</strong> — Apache-2.0 on GitHub. Single-user demo on Pages; bundled co-edit Docker image lands with the first tagged release.</span>
+              <span><strong>Self-host</strong> — <code>docker compose up</code>, open <code>localhost:8080</code></span>
             </div>
 
             <details class="howto">
@@ -263,7 +348,7 @@ docker compose --profile dev up</code></pre>
                   Full setup in the
                   <a href="https://github.com/schnsrw/docx#local-dev" rel="noopener">README</a>
                   and the
-                  <a href="https://github.com/schnsrw/docx/blob/main/docs/05-backend-design.md" rel="noopener">backend design doc</a>.
+                  <a href="https://github.com/schnsrw/docx/blob/main/docs/internal/05-backend-design.md" rel="noopener">backend design doc</a>.
                 </p>
               </div>
             </details>
@@ -272,14 +357,16 @@ docker compose --profile dev up</code></pre>
               <span class="chip">TypeScript</span>
               <span class="chip">React</span>
               <span class="chip">ProseMirror</span>
-              <span class="chip">Yjs</span>
+              <span class="chip">Yjs · y-prosemirror</span>
               <span class="chip">Go</span>
+              <span class="chip">Bun</span>
               <span class="chip">Playwright</span>
             </div>
 
             <div class="card__badges">
-              <img alt="CI status" src="https://github.com/schnsrw/docx/actions/workflows/ci.yml/badge.svg?branch=main" />
-              <img alt="Deploy demo status" src="https://github.com/schnsrw/docx/actions/workflows/deploy-demo.yml/badge.svg?branch=main" />
+              <img alt="CI status" loading="lazy" src="https://github.com/schnsrw/docx/actions/workflows/ci.yml/badge.svg?branch=main" />
+              <img alt="Deploy demo status" loading="lazy" src="https://github.com/schnsrw/docx/actions/workflows/deploy-demo.yml/badge.svg?branch=main" />
+              <img alt="Fidelity comparison" loading="lazy" src="https://github.com/schnsrw/docx/actions/workflows/fidelity-compare.yml/badge.svg?branch=main" />
             </div>
 
             <footer class="card__foot">
@@ -292,7 +379,7 @@ docker compose --profile dev up</code></pre>
             </footer>
           </article>
 
-          <!-- Casual Desktop -->
+          <!-- ─── Casual Desktop ─── -->
           <article class="card">
             <header class="card__head">
               <div class="card__icon card__icon--desktop" aria-hidden="true">
@@ -311,27 +398,27 @@ docker compose --profile dev up</code></pre>
               </div>
               <span class="badge badge--soon">
                 <span class="badge__dot" aria-hidden="true"></span>
-                Coming soon
+                In progress
               </span>
             </header>
 
             <p class="card__desc">
-              Same editors, packaged for the desktop via Tauri — your
-              files stay on your machine, no cloud round-trip, no
-              collab server. A small native binary that opens .docx
-              and .xlsx straight from the OS file dialog and gives
-              you a Word/Excel feel without the install footprint.
+              The same editors, packaged for the desktop via Tauri — your
+              files stay on your machine, no cloud round-trip, no collab
+              server. A small native binary that opens .docx and .xlsx
+              straight from the OS file dialog and gives you a Word/Excel
+              feel without the install footprint of either.
             </p>
 
             <ul class="bullets">
-              <li>Single-user only — collab stays on the Docker image</li>
-              <li>Native file dialogs; no localhost, no browser tab</li>
-              <li>Reuses the Casual Editor + Casual Sheets web cores; deltas live in the Tauri shell</li>
+              <li>Single-user only — collab stays on the Docker image where it earns its keep</li>
+              <li>Native file dialogs, drag-and-drop from Finder/Explorer, no localhost, no browser tab</li>
+              <li>Reuses the Casual Editor + Casual Sheets web cores verbatim; deltas live in the Tauri shell</li>
               <li>Targets macOS, Linux, and Windows from one codebase</li>
             </ul>
 
             <div class="meta-strip">
-              <span><strong>Status</strong> — early Tauri scaffolding. First binary lands after the docs &amp; sheets web fidelity hits its 90% floor.</span>
+              <span><strong>Status</strong> — early Tauri scaffolding. First binary ships after both web fidelity scores cross the 90% floor.</span>
             </div>
 
             <div class="chips">
@@ -352,11 +439,143 @@ docker compose --profile dev up</code></pre>
         </div>
       </section>
 
+      <!-- ───────────── RECENT UPDATES ───────────── -->
+      <section id="recent" class="section" aria-labelledby="recent-title">
+        <div class="section__head">
+          <p class="section__eyebrow">Now shipping</p>
+          <h2 id="recent-title" class="section__title">Recently shipped.</h2>
+          <p class="section__sub">A running feed of the last few releases across the projects.</p>
+        </div>
+
+        <ol class="timeline">
+          <li class="timeline__item">
+            <div class="timeline__meta">
+              <span class="timeline__when">This week</span>
+              <span class="timeline__product timeline__product--doc">Casual Editor</span>
+            </div>
+            <div class="timeline__body">
+              <h3 class="timeline__title">14 templates across 4 categories with real PNG previews</h3>
+              <p class="timeline__desc">
+                The home page now opens to a Google-Docs-style template gallery —
+                Resume, Cover letter, Meeting notes, Project proposal, Memo,
+                Weekly status, Press release, Letter, Travel itinerary, Recipe,
+                Essay, Lab report, Syllabus, plus the Sample showcase.
+                Thumbnails are first-page renders from LibreOffice so you see
+                the actual layout before picking. Search + category pills +
+                featured strip.
+              </p>
+              <div class="timeline__refs">
+                <a class="link" href="https://doc.schnsrw.live/" rel="noopener">See it live</a>
+                <a class="link" href="https://github.com/schnsrw/docx/commits/main" rel="noopener">Commits</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="timeline__item">
+            <div class="timeline__meta">
+              <span class="timeline__when">This week</span>
+              <span class="timeline__product timeline__product--doc">Casual Editor</span>
+            </div>
+            <div class="timeline__body">
+              <h3 class="timeline__title">Word-compat closing border heuristic (#395)</h3>
+              <p class="timeline__desc">
+                Word draws a horizontal line below the last body row of tables
+                whose style declares a <code>firstRow</code> bottom border —
+                even though ECMA-376 says firstRow borders only apply to the
+                first row. Ground-truth matrix across Word Online / Google Docs
+                / LibreOffice showed the behaviour is Word-only, so the
+                heuristic lives behind an opt-in flag with five unit tests
+                covering on/off + skip paths.
+              </p>
+              <div class="timeline__refs">
+                <a class="link" href="https://github.com/eigenpal/docx-js-editor/issues/395" rel="noopener">Issue #395</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="timeline__item">
+            <div class="timeline__meta">
+              <span class="timeline__when">Past 10 days</span>
+              <span class="timeline__product timeline__product--sheet">Casual Sheets</span>
+            </div>
+            <div class="timeline__body">
+              <h3 class="timeline__title">VBA macro passthrough — .xlsm round-trips byte-equal</h3>
+              <p class="timeline__desc">
+                Macro-bearing workbooks now survive load → edit → save with
+                their VBA project preserved verbatim. The macros themselves
+                still need a host VBA runtime to execute (we don't ship one),
+                but the round-trip stops corrupting them.
+              </p>
+              <div class="timeline__refs">
+                <a class="link" href="https://github.com/schnsrw/sheets" rel="noopener">Source</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="timeline__item">
+            <div class="timeline__meta">
+              <span class="timeline__when">Past 10 days</span>
+              <span class="timeline__product timeline__product--sheet">Casual Sheets</span>
+            </div>
+            <div class="timeline__body">
+              <h3 class="timeline__title">Home template gallery — 11 real .xlsx templates with previews</h3>
+              <p class="timeline__desc">
+                Full-viewport landing screen replaces the auto-blank workbook.
+                Hand-authored templates across Personal / Work / Finance /
+                Education, each with a thumbnail driven by a hand-tuned preview
+                grid (no .xlsx parse before pick). Recent files surface from
+                IndexedDB.
+              </p>
+              <div class="timeline__refs">
+                <a class="link" href="https://sheet.schnsrw.live/" rel="noopener">See it live</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="timeline__item">
+            <div class="timeline__meta">
+              <span class="timeline__when">Past 30 days</span>
+              <span class="timeline__product timeline__product--doc">Casual Editor</span>
+            </div>
+            <div class="timeline__body">
+              <h3 class="timeline__title">Round-trip audit harness — eliminated ~2,400 dropped tags</h3>
+              <p class="timeline__desc">
+                A sweep across the 39-fixture corpus traced every OOXML element
+                that vanished on parse → serialize round-trip and pinned a
+                fix for each. 16+ commits closed losses ranging from
+                <code>w:lang</code> (693 occurrences) and <code>w:proofErr</code>
+                (544) down to the long tail. 19→26 fixtures now round-trip
+                with zero element drops.
+              </p>
+            </div>
+          </li>
+
+          <li class="timeline__item">
+            <div class="timeline__meta">
+              <span class="timeline__when">Past 30 days</span>
+              <span class="timeline__product timeline__product--sheet">Casual Sheets</span>
+            </div>
+            <div class="timeline__body">
+              <h3 class="timeline__title">Univer fork — perf plan, items 1–3 shipped</h3>
+              <p class="timeline__desc">
+                Forked Univer into <code>schnsrw/univer-revamp</code> and
+                closed three of the four headline perf items. Bumped the
+                vendored npm packages 0.22.1 → 0.24.0 in the process.
+              </p>
+            </div>
+          </li>
+        </ol>
+
+        <p class="timeline__more">
+          More history in <a href="https://github.com/schnsrw" rel="noopener">github.com/schnsrw</a>.
+        </p>
+      </section>
+
       <!-- ───────────── STACK ───────────── -->
       <section id="stack" class="section" aria-labelledby="stack-title">
         <div class="section__head">
-          <h2 id="stack-title" class="section__title">Stack</h2>
-          <p class="section__sub">Tools I reach for first.</p>
+          <p class="section__eyebrow">Stack</p>
+          <h2 id="stack-title" class="section__title">Tools I reach for first.</h2>
         </div>
 
         <div class="stack">
@@ -366,16 +585,19 @@ docker compose --profile dev up</code></pre>
               <span class="chip chip--lg">TypeScript</span>
               <span class="chip chip--lg">React</span>
               <span class="chip chip--lg">Vite</span>
-              <span class="chip chip--lg">Tailwind / CSS</span>
+              <span class="chip chip--lg">Bun</span>
+              <span class="chip chip--lg">ProseMirror</span>
+              <span class="chip chip--lg">Univer</span>
             </div>
           </div>
           <div class="stack__group">
-            <div class="stack__label">Backend &amp; runtime</div>
+            <div class="stack__label">Realtime &amp; backend</div>
             <div class="stack__items">
+              <span class="chip chip--lg">Go</span>
               <span class="chip chip--lg">Node.js</span>
               <span class="chip chip--lg">Fastify</span>
-              <span class="chip chip--lg">Yjs / Hocuspocus</span>
-              <span class="chip chip--lg">Docker</span>
+              <span class="chip chip--lg">Yjs · Hocuspocus</span>
+              <span class="chip chip--lg">Docker · Redis</span>
             </div>
           </div>
           <div class="stack__group">
@@ -383,7 +605,15 @@ docker compose --profile dev up</code></pre>
             <div class="stack__items">
               <span class="chip chip--lg">Playwright</span>
               <span class="chip chip--lg">GitHub Actions</span>
+              <span class="chip chip--lg">LibreOffice fidelity harness</span>
               <span class="chip chip--lg">ESLint + Prettier</span>
+            </div>
+          </div>
+          <div class="stack__group">
+            <div class="stack__label">Desktop</div>
+            <div class="stack__items">
+              <span class="chip chip--lg">Tauri</span>
+              <span class="chip chip--lg">Rust</span>
             </div>
           </div>
         </div>
@@ -392,7 +622,8 @@ docker compose --profile dev up</code></pre>
       <!-- ───────────── CONTACT ───────────── -->
       <section id="contact" class="section section--about" aria-labelledby="contact-title">
         <div class="section__head">
-          <h2 id="contact-title" class="section__title">Get in touch</h2>
+          <p class="section__eyebrow">Contact</p>
+          <h2 id="contact-title" class="section__title">Get in touch.</h2>
           <p class="section__sub">Open to interesting problems, contract work, and collaborations.</p>
         </div>
 
@@ -433,9 +664,153 @@ docker compose --profile dev up</code></pre>
       </div>
     </footer>
 
+    <!-- ─── Structured data (schema.org / JSON-LD) ─── -->
+    <!-- Person + the three projects so search engines and AI assistants
+         can answer "who built Casual Editor / Sheets" cleanly. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://schnsrw.live/#person",
+          "name": "Sachin Sarwa",
+          "alternateName": "schnsrw",
+          "url": "https://schnsrw.live/",
+          "email": "schnsrw@gmail.com",
+          "jobTitle": "Software Engineer",
+          "sameAs": [
+            "https://github.com/schnsrw"
+          ],
+          "knowsAbout": [
+            "Real-time collaborative editing",
+            "Conflict-free Replicated Data Types (CRDT)",
+            "Yjs",
+            "ProseMirror",
+            "OOXML / .docx / .xlsx round-trip",
+            "TypeScript",
+            "Go",
+            "Tauri",
+            "Open source"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://schnsrw.live/#website",
+          "url": "https://schnsrw.live/",
+          "name": "Sachin Sarwa — schnsrw.live",
+          "description": "Portfolio for Casual Sheets, Casual Editor, and Casual Desktop.",
+          "publisher": { "@id": "https://schnsrw.live/#person" },
+          "inLanguage": "en"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://schnsrw.live/casual-sheets/#app",
+          "name": "Casual Sheets",
+          "alternateName": "schnsrw/sheets",
+          "url": "https://schnsrw.live/casual-sheets/",
+          "sameAs": [
+            "https://github.com/schnsrw/sheets",
+            "https://hub.docker.com/r/schnsrw/casual-sheets",
+            "https://sheet.schnsrw.live/"
+          ],
+          "applicationCategory": "BusinessApplication",
+          "applicationSubCategory": "Spreadsheet",
+          "operatingSystem": "Web, Linux (Docker)",
+          "softwareVersion": "0.0.6",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+          "license": "https://www.apache.org/licenses/LICENSE-2.0",
+          "description": "An open-source, self-hostable web spreadsheet that feels like Microsoft Excel — ribbon UI, formula bar, file-centric workflow — with real-time multi-user co-editing built in. Open and save .xlsx / .ods / .csv / .tsv with full round-trip fidelity. 357 e2e tests on every push. Charts (8 types incl. trendlines), pivot tables, sparklines, version history, dark theme, autosave, 40+ Excel keyboard shortcuts.",
+          "featureList": [
+            "Open and save .xlsx, .ods, .csv, .tsv with round-trip fidelity",
+            "Web-Worker file parsing — main thread never blocks",
+            "Real-time co-editing with presence avatars and live cursors",
+            "Pivot tables with drill-down",
+            "8 chart types with trendlines and date-axis detection",
+            "Sparklines (line / column / win-loss)",
+            "Conditional formatting, data validation, drawings",
+            "Version history with auto-snapshots",
+            "Excel-paste preservation (merges, widths, heights)",
+            "40+ Excel keyboard shortcuts"
+          ],
+          "creator": { "@id": "https://schnsrw.live/#person" }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://schnsrw.live/casual-editor/#app",
+          "name": "Casual Editor",
+          "alternateName": "schnsrw/docx",
+          "url": "https://schnsrw.live/casual-editor/",
+          "sameAs": [
+            "https://github.com/schnsrw/docx",
+            "https://doc.schnsrw.live/"
+          ],
+          "applicationCategory": "BusinessApplication",
+          "applicationSubCategory": "Word Processor",
+          "operatingSystem": "Web",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+          "license": "https://www.apache.org/licenses/LICENSE-2.0",
+          "description": "An open-source web document editor that feels like Microsoft Word — ribbon, page layout, file-centric flow. Open a .docx, edit with WYSIWYG fidelity, save it back. Real-time co-editing over a stateless Go gateway speaking the y-websocket protocol. Forked from eigenpal/docx-editor (MIT). 14 home-page templates with real PNG previews across 4 categories. 26 of 39 fixtures round-trip pristine in the per-tag audit; three-way fidelity harness vs LibreOffice and OnlyOffice DocumentBuilder.",
+          "featureList": [
+            "Open and save .docx with WYSIWYG fidelity",
+            "Home-page template gallery (Resume, Cover letter, Letter, Meeting notes, Project proposal, Memo, Weekly status, Press release, Travel itinerary, Recipe, Essay, Lab report, Syllabus, Sample, Blank)",
+            "Real PNG previews per template (LibreOffice-rendered)",
+            "Per-tag round-trip audit on every CI push",
+            "Three-way fidelity harness vs LibreOffice and OnlyOffice DocumentBuilder",
+            "Real-time co-editing via Yjs over a stateless Go gateway",
+            "Word-compat opt-in flag for non-spec heuristics",
+            "Pluggable host integration (inline / WOPI / JWT-API)"
+          ],
+          "creator": { "@id": "https://schnsrw.live/#person" }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://schnsrw.live/casual-desktop/#app",
+          "name": "Casual Desktop",
+          "url": "https://schnsrw.live/casual-desktop/",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "macOS, Linux, Windows",
+          "description": "Tauri-packaged desktop binaries for the Casual Editor and Casual Sheets cores. Single-user, offline, native file dialogs — your files stay on your machine.",
+          "creator": { "@id": "https://schnsrw.live/#person" }
+        },
+        {
+          "@type": "ItemList",
+          "name": "Projects by Sachin Sarwa",
+          "itemListOrder": "https://schema.org/ItemListOrderDescending",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "url": "https://schnsrw.live/casual-sheets/", "name": "Casual Sheets" },
+            { "@type": "ListItem", "position": 2, "url": "https://schnsrw.live/casual-editor/", "name": "Casual Editor" },
+            { "@type": "ListItem", "position": 3, "url": "https://schnsrw.live/casual-desktop/", "name": "Casual Desktop" }
+          ]
+        }
+      ]
+    }
+    </script>
+
     <script>
-      // Keep footer copyright year accurate without a build step.
+      // Footer year — keep accurate without a build step.
       document.querySelectorAll('.year').forEach((n) => (n.textContent = String(new Date().getFullYear())));
+
+      // Scroll-fade for sections — adds .in-view when each section enters the
+      // viewport, so the page reveals as you scroll rather than dumping all
+      // at once. No deps; honours prefers-reduced-motion via the CSS rule
+      // that disables the transform.
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add('in-view');
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { rootMargin: '0px 0px -10% 0px', threshold: 0.05 }
+        );
+        document.querySelectorAll('.section, .hero').forEach((el) => io.observe(el));
+      } else {
+        document.querySelectorAll('.section, .hero').forEach((el) => el.classList.add('in-view'));
+      }
     </script>
   </body>
 </html>

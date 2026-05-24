@@ -1,0 +1,78 @@
+# Sachin Sarwa — schnsrw.live
+
+> Portfolio for three open-source, file-centric productivity tools:
+> Casual Sheets (Excel-flavored web spreadsheet), Casual Editor
+> (Word-flavored web document editor), and Casual Desktop (Tauri
+> binaries — in progress). All three round-trip native Office formats
+> with high fidelity and are designed to be self-hosted via Docker.
+
+## About
+
+- **Person:** Sachin Sarwa — software engineer
+- **Contact:** schnsrw@gmail.com
+- **GitHub:** https://github.com/schnsrw
+- **Portfolio:** https://schnsrw.live/
+
+## Projects
+
+### Casual Sheets — Excel-flavored web spreadsheet
+- **Live demo:** https://sheet.schnsrw.live/
+- **Source:** https://github.com/schnsrw/sheets
+- **Docker:** https://hub.docker.com/r/schnsrw/casual-sheets
+- **License:** Apache-2.0
+- **Status:** v0.0.6 shipping. 357 Playwright end-to-end tests on every push.
+- **Formats round-tripped:** .xlsx · .ods · .csv · .tsv
+- **Built on:** Univer OSS (Apache-2.0) with a custom Office-style shell.
+- **Notable features:** 8 chart types with trendlines + date-axis detection;
+  pivot tables with drill-down; sparklines (line / column / win-loss); version
+  history with auto-snapshots; conditional formatting; data validation; live
+  cursors and presence avatars in the Docker image; .xlsm macro passthrough
+  (round-trips byte-equal); 11-template home gallery with thumbnail previews.
+
+### Casual Editor — Word-flavored web document editor
+- **Live demo:** https://doc.schnsrw.live/
+- **Source:** https://github.com/schnsrw/docx
+- **License:** Apache-2.0 (fork of eigenpal/docx-editor, MIT)
+- **Status:** Public preview. 26 of 39 .docx fixtures round-trip pristine in
+  the per-tag audit; working toward ≥ 90% before the desktop ship.
+- **Formats round-tripped:** .docx
+- **Built on:** ProseMirror with an OOXML-preserving model; React + Bun; Go
+  for the stateless real-time gateway (own y-websocket protocol implementation
+  in ~120 LOC, no DB, no on-disk update log).
+- **Notable features:** 14-template home gallery with real first-page PNG
+  previews across four categories (Personal / Work / Education / Career);
+  three-way fidelity harness vs LibreOffice and OnlyOffice DocumentBuilder;
+  per-tag round-trip audit in CI; Word-compat opt-in flag for non-spec
+  heuristics (e.g. last-row closing border, issue #395); pluggable host
+  integration (inline / WOPI / JWT-API behind one Go interface); real-time
+  co-editing via Yjs.
+
+### Casual Desktop — offline editor for documents and sheets
+- **Status:** Early Tauri scaffolding. First binary ships after both web
+  fidelity scores cross the 90% floor.
+- **Targets:** macOS, Linux, Windows.
+- **Approach:** Reuses the Casual Editor + Casual Sheets web cores verbatim;
+  deltas live in the Tauri shell. Single-user only (collab stays in the
+  Docker images where it earns its keep).
+
+## Architectural principles
+
+- **File-centric.** Native Office formats are the source of truth. Open,
+  edit, save back. Never an export-only model.
+- **Stateless backends.** No DB, no on-disk update log in the real-time
+  service. State lives only in memory while a session is active. The host
+  owns persistence (WOPI in v1+, inline in v0).
+- **Open source.** Apache-2.0 / MIT throughout. Demos free; self-host via
+  the published Docker images.
+- **Real-time when it earns its keep.** Single-user demo on GitHub Pages;
+  real-time + co-edit ship in the Docker image, not in the React component
+  itself. Same web build across distribution shapes.
+
+## Tech stack
+
+- **Frontend:** TypeScript · React · Vite · Bun · ProseMirror · Univer
+- **Realtime + backend:** Go · Node.js · Fastify · Yjs · Hocuspocus ·
+  Docker · Redis
+- **Quality + ops:** Playwright · GitHub Actions · LibreOffice fidelity
+  harness · ESLint + Prettier
+- **Desktop:** Tauri · Rust

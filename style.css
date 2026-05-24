@@ -1155,3 +1155,333 @@ body {
 }
 
 .benchmark tbody tr:last-child td { border-bottom: 0; }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   v2 additions — modern, artistic flourishes layered on the paper-feel
+   base. Keep things light; the page should still read like a document.
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* Aurora — a subtle, slowly drifting radial gradient under the page. It
+   only shows in the top viewport and fades out, so the rest of the page
+   stays paper-clean. Disabled under prefers-reduced-motion (handled by
+   the global rule that nukes animation-duration). */
+.bg-aurora {
+  position: fixed;
+  inset: -10% -10% auto -10%;
+  height: 110vh;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(700px 460px at 12% 8%, rgba(37, 99, 235, 0.12) 0%, transparent 60%),
+    radial-gradient(620px 420px at 88% 6%, rgba(124, 58, 237, 0.10) 0%, transparent 60%),
+    radial-gradient(900px 480px at 50% -8%, rgba(184, 116, 19, 0.06) 0%, transparent 65%);
+  filter: blur(0.5px);
+  animation: aurora-drift 24s ease-in-out infinite alternate;
+  mask-image: linear-gradient(180deg, #000 0%, #000 60%, transparent 95%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 60%, transparent 95%);
+}
+
+@keyframes aurora-drift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(-2%, -1%, 0) scale(1.04); }
+}
+
+/* Visually-hidden — for section headings that we use for AT but don't
+   render visually (the stats strip has no visible heading). */
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Serif-display hero variant — pulls Source Serif 4 (loaded in the
+   <head>) for the headline so it reads like a wordmark, with the
+   second line italic-emphasised. */
+.hero__name--serif {
+  font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  font-weight: 600;
+  font-size: clamp(44px, 6.5vw, 72px);
+  line-height: 1.05;
+  letter-spacing: -0.018em;
+  margin: 24px 0 10px;
+}
+
+.hero__name-em {
+  font-style: italic;
+  color: var(--accent-strong);
+  font-weight: 600;
+}
+
+/* Section eyebrow — small all-caps label above section titles for
+   editorial rhythm. */
+.section__eyebrow {
+  margin: 0 0 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* ─── Stats strip (at-a-glance numbers) ─── */
+.section--stats {
+  margin-top: 64px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  padding: 24px;
+  background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.stat {
+  padding: 6px 4px;
+  border-left: 1px solid var(--border);
+  padding-left: 16px;
+}
+
+.stat:first-child { border-left: 0; padding-left: 4px; }
+
+@media (max-width: 720px) {
+  .stat { border-left: 0; padding-left: 4px; border-top: 1px solid var(--border); padding-top: 14px; }
+  .stat:first-child { border-top: 0; padding-top: 4px; }
+}
+
+.stat__num {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.stat__num-soft {
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: 0.7em;
+}
+
+.stat__label {
+  margin-top: 8px;
+  font-size: 12.5px;
+  color: var(--text-soft);
+  line-height: 1.45;
+}
+
+/* ─── Inline highlight strip inside project cards ─── */
+.hl-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 8px 0 18px;
+  padding: 14px 0;
+  border-top: 1px dashed var(--border);
+  border-bottom: 1px dashed var(--border);
+}
+
+.hl {
+  padding: 0 8px;
+  border-left: 1px solid var(--border);
+}
+
+.hl:first-child { border-left: 0; }
+
+.hl__num {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.015em;
+  color: var(--text);
+}
+
+.hl__num-soft {
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: 0.7em;
+}
+
+.hl__label {
+  margin-top: 4px;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+@media (max-width: 480px) {
+  .hl-row { grid-template-columns: 1fr; }
+  .hl { border-left: 0; border-top: 1px dashed var(--border); padding-top: 8px; padding-left: 0; }
+  .hl:first-child { border-top: 0; padding-top: 0; }
+}
+
+/* ─── Activity timeline (Recently shipped) ─── */
+.timeline {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 110px;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
+  background: linear-gradient(180deg, var(--border) 0%, transparent 100%);
+}
+
+@media (max-width: 720px) {
+  .timeline::before { display: none; }
+}
+
+.timeline__item {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 32px;
+  padding: 18px 0 22px;
+  position: relative;
+}
+
+.timeline__item + .timeline__item {
+  border-top: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+}
+
+.timeline__item::before {
+  content: '';
+  position: absolute;
+  left: 106px;
+  top: 28px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--bg);
+}
+
+@media (max-width: 720px) {
+  .timeline__item { grid-template-columns: 1fr; gap: 8px; }
+  .timeline__item::before { display: none; }
+}
+
+.timeline__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 4px;
+}
+
+.timeline__when {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+
+.timeline__product {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  letter-spacing: 0.01em;
+}
+
+.timeline__product--doc {
+  background: rgba(37, 99, 235, 0.10);
+  color: #1d4ed8;
+}
+
+.timeline__product--sheet {
+  background: rgba(33, 115, 70, 0.10);
+  color: #166534;
+}
+
+.timeline__body { min-width: 0; }
+
+.timeline__title {
+  margin: 0 0 8px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.timeline__desc {
+  margin: 0 0 10px;
+  color: var(--text-soft);
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+
+.timeline__desc code {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85em;
+  background: var(--surface-2);
+  padding: 1px 5px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.timeline__refs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.timeline__more {
+  margin: 20px 0 0;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.timeline__more a {
+  color: var(--text-soft);
+  text-decoration: none;
+  border-bottom: 1px dotted color-mix(in srgb, var(--text-soft) 50%, transparent);
+}
+
+.timeline__more a:hover { color: var(--text); border-bottom-color: var(--text-soft); }
+
+/* ─── Scroll-fade reveal ─── */
+.section, .hero {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.section.in-view, .hero.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* No-JS / pre-observer fallback — show immediately. JS sets in-view
+   from IntersectionObserver. */
+@media (prefers-reduced-motion: reduce) {
+  .section, .hero { opacity: 1; transform: none; }
+}
+
+/* Override the global animation-killer for the aurora (a slow drift
+   is decorative enough to keep, but disable for users who explicitly
+   opt out of motion). The block at the bottom of the file kills
+   transition-duration globally; we re-enable our reveal here while
+   preserving the no-animation principle for AT users. */
+@media (prefers-reduced-motion: no-preference) {
+  .bg-aurora { animation: aurora-drift 24s ease-in-out infinite alternate; }
+}
+
