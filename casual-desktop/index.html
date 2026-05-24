@@ -11,9 +11,45 @@
     <meta property="og:description" content="Offline document + spreadsheet editor for macOS, Linux, Windows." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://schnsrw.live/casual-desktop/" />
+    <meta property="og:image" content="https://schnsrw.live/og.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Casual Desktop — offline editor for documents and sheets" />
+    <meta property="og:site_name" content="schnsrw.live" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Casual Desktop — offline document + spreadsheet editor" />
+    <meta name="twitter:description" content="Tauri binaries reusing the Casual Editor and Casual Sheets web cores. macOS, Linux, Windows. Single-user, offline." />
+    <meta name="twitter:image" content="https://schnsrw.live/og.png" />
+
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+    <meta name="keywords" content="Casual Desktop, Tauri, offline editor, desktop spreadsheet, desktop document editor, macOS, Linux, Windows, Rust, open source" />
 
     <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
     <link rel="canonical" href="https://schnsrw.live/casual-desktop/" />
+
+    <!-- JSON-LD: SoftwareApplication for Casual Desktop. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "@id": "https://schnsrw.live/casual-desktop/#app",
+        "name": "Casual Desktop",
+        "applicationCategory": "DesktopEnhancementApplication",
+        "operatingSystem": "macOS, Linux, Windows",
+        "url": "https://schnsrw.live/casual-desktop/",
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
+        "description": "Tauri binaries that reuse the Casual Editor and Casual Sheets web cores verbatim — single-user, offline. In early scaffolding; first binary ships once both web fidelity scores cross 90%.",
+        "image": "https://schnsrw.live/og.png",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "author": { "@type": "Person", "@id": "https://schnsrw.live/#person", "name": "Sachin Sarwa", "url": "https://schnsrw.live/" },
+        "isAccessibleForFree": true,
+        "softwareRequirements": "macOS 12+, Linux (modern), Windows 10+",
+        "keywords": "tauri, desktop, offline, docx, xlsx, open source"
+      }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

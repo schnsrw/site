@@ -15,21 +15,124 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://schnsrw.live/" />
     <meta property="og:site_name" content="schnsrw.live" />
-    <meta property="og:image" content="https://schnsrw.live/favicon.svg" />
+    <meta property="og:image" content="https://schnsrw.live/og.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Casual Office — Sheets, Editor, Desktop by Sachin Sarwa" />
     <meta property="og:locale" content="en_US" />
 
     <!-- Twitter / X card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Sachin Sarwa — Casual Sheets · Editor · Desktop" />
     <meta name="twitter:description" content="Open-source, real-time, file-centric productivity tools. Excel-flavored web spreadsheet · Word-flavored web editor · desktop binary in progress." />
-    <meta name="twitter:image" content="https://schnsrw.live/favicon.svg" />
+    <meta name="twitter:image" content="https://schnsrw.live/og.png" />
+    <meta name="twitter:image:alt" content="Casual Office — Sheets, Editor, Desktop by Sachin Sarwa" />
 
     <!-- Discoverability -->
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-    <meta name="keywords" content="Casual Sheets, Casual Editor, Casual Desktop, web spreadsheet, web document editor, .xlsx editor, .docx editor, real-time collaboration, Yjs, ProseMirror, Univer, OOXML, Go, TypeScript, open source" />
+    <meta name="keywords" content="Casual Office, Casual Sheets, Casual Editor, Casual Desktop, web spreadsheet, web document editor, .xlsx editor, .docx editor, real-time collaboration, Yjs, ProseMirror, Univer, OOXML, Go, TypeScript, open source, Apache-2.0, MIT, self-hosted, Docker" />
 
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="canonical" href="https://schnsrw.live/" />
+
+    <!--
+      JSON-LD: Person + WebSite + an ItemList of the three projects, each
+      as a SoftwareApplication. Google's rich-results indexer + LLM web
+      crawlers preferentially absorb structured data; this gives them a
+      single canonical mapping from each project name to its live demo,
+      repo, license, and category.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://schnsrw.live/#person",
+            "name": "Sachin Sarwa",
+            "url": "https://schnsrw.live/",
+            "email": "schnsrw@gmail.com",
+            "jobTitle": "Software Engineer",
+            "sameAs": [
+              "https://github.com/schnsrw",
+              "https://hub.docker.com/u/schnsrw"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://schnsrw.live/#website",
+            "url": "https://schnsrw.live/",
+            "name": "Casual Office",
+            "alternateName": "schnsrw.live",
+            "description": "Open-source, real-time, file-centric productivity tools by Sachin Sarwa.",
+            "publisher": { "@id": "https://schnsrw.live/#person" },
+            "inLanguage": "en"
+          },
+          {
+            "@type": "ItemList",
+            "@id": "https://schnsrw.live/#projects",
+            "name": "Casual Office — projects",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "item": {
+                  "@type": "SoftwareApplication",
+                  "@id": "https://sheet.schnsrw.live/#app",
+                  "name": "Casual Sheets",
+                  "applicationCategory": "BusinessApplication",
+                  "applicationSubCategory": "SpreadsheetApplication",
+                  "operatingSystem": "Web Browser, Docker",
+                  "url": "https://sheet.schnsrw.live/",
+                  "codeRepository": "https://github.com/schnsrw/sheets",
+                  "downloadUrl": "https://hub.docker.com/r/schnsrw/casual-sheets",
+                  "license": "https://www.apache.org/licenses/LICENSE-2.0",
+                  "description": "Open-source, self-hostable web spreadsheet with .xlsx round-trip, real-time co-editing, pivot tables, 8 chart types, sparklines, and version history.",
+                  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+                  "author": { "@id": "https://schnsrw.live/#person" }
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "item": {
+                  "@type": "SoftwareApplication",
+                  "@id": "https://doc.schnsrw.live/#app",
+                  "name": "Casual Editor",
+                  "applicationCategory": "BusinessApplication",
+                  "applicationSubCategory": "WordProcessor",
+                  "operatingSystem": "Web Browser, Docker",
+                  "url": "https://doc.schnsrw.live/",
+                  "codeRepository": "https://github.com/schnsrw/docx",
+                  "license": "https://www.apache.org/licenses/LICENSE-2.0",
+                  "description": "Open-source, real-time collaborative .docx editor. ProseMirror with an OOXML-preserving model; stateless Go gateway implementing the y-websocket protocol.",
+                  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+                  "author": { "@id": "https://schnsrw.live/#person" }
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "item": {
+                  "@type": "SoftwareApplication",
+                  "@id": "https://schnsrw.live/casual-desktop/#app",
+                  "name": "Casual Desktop",
+                  "applicationCategory": "DesktopEnhancementApplication",
+                  "operatingSystem": "macOS, Linux, Windows",
+                  "url": "https://schnsrw.live/casual-desktop/",
+                  "license": "https://www.apache.org/licenses/LICENSE-2.0",
+                  "description": "Tauri binaries that reuse the Casual Editor and Casual Sheets web cores verbatim — single-user, offline. In early scaffolding; first binary ships once both web fidelity scores cross 90%.",
+                  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+                  "author": { "@id": "https://schnsrw.live/#person" }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

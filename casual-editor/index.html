@@ -11,19 +11,51 @@
     <meta property="og:description" content="Word-flavored web document editor. Opens .docx, .odt, .md, .txt; Yjs co-editing; 14-template home gallery with real PNG previews; 26 of 39 fixtures round-trip pristine; three-way fidelity harness in CI." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://schnsrw.live/casual-editor/" />
-    <meta property="og:image" content="https://schnsrw.live/favicon.svg" />
+    <meta property="og:image" content="https://schnsrw.live/og.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Casual Editor — Word-flavored web document editor" />
     <meta property="og:site_name" content="schnsrw.live" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Casual Editor — Word-flavored web document editor" />
     <meta name="twitter:description" content="Open .docx, .odt, .md, .txt, edit like the web, save back. Real-time co-editing via Yjs over a stateless Go gateway. 14-template home gallery with real PNG previews." />
-    <meta name="twitter:image" content="https://schnsrw.live/favicon.svg" />
+    <meta name="twitter:image" content="https://schnsrw.live/og.png" />
 
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
     <meta name="keywords" content="Casual Editor, .docx editor, .odt editor, Markdown editor, .txt editor, web document editor, OOXML round-trip, ProseMirror, Yjs, y-prosemirror, Go gateway, stateless backend, WOPI, eigenpal docx-editor, @schnsrw/core, WASM, open source, Apache-2.0" />
 
     <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
     <link rel="canonical" href="https://schnsrw.live/casual-editor/" />
+
+    <!--
+      JSON-LD: SoftwareApplication for Casual Editor. Same @id as the
+      live demo's app schema so Google + LLM crawlers see one canonical
+      entity across schnsrw.live/casual-editor/ and doc.schnsrw.live/.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "@id": "https://doc.schnsrw.live/#app",
+        "name": "Casual Editor",
+        "applicationCategory": "BusinessApplication",
+        "applicationSubCategory": "WordProcessor",
+        "operatingSystem": "Web Browser, Docker (Linux/amd64, Linux/arm64)",
+        "url": "https://doc.schnsrw.live/",
+        "codeRepository": "https://github.com/schnsrw/docx",
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
+        "description": "Open-source, real-time collaborative .docx editor. ProseMirror with an OOXML-preserving model (forked from eigenpal/docx-editor, MIT); React + Bun frontend; Go for the stateless WebSocket gateway implementing the y-websocket protocol. Document persistence delegated to a pluggable host integration.",
+        "image": "https://schnsrw.live/og.png",
+        "screenshot": "https://doc.schnsrw.live/og.png",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "author": { "@type": "Person", "@id": "https://schnsrw.live/#person", "name": "Sachin Sarwa", "url": "https://schnsrw.live/" },
+        "isAccessibleForFree": true,
+        "keywords": "docx editor, word processor, open source, real-time, collaborative, ProseMirror, Yjs, Go, OOXML"
+      }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
