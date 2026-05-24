@@ -1,9 +1,9 @@
-# Show HN — Casual Sheets
+# Show HN — Casual Sheets v0.1.0
 
 ## Title (≤ 80 chars)
 
 ```
-Show HN: Casual Sheets – open-source web spreadsheet with .xlsx round-trip
+Show HN: Casual Sheets v0.1.0 – self-hostable .xlsx editor with WOPI + JWT
 ```
 
 ## URL field
@@ -15,65 +15,81 @@ https://sheet.schnsrw.live/
 ## First comment (post immediately after submission)
 
 ```
-Hi HN — I've been building an open-source web spreadsheet that opens
-and saves native .xlsx in the browser, with real-time co-editing,
-pivot tables, eight chart types, sparklines, and version history.
+Hi HN — Casual Sheets is an open-source, self-hostable web
+spreadsheet. v0.1.0 just landed today; it's the first release that
+earns its self-host story.
 
 Demo: https://sheet.schnsrw.live/
-Repo: https://github.com/schnsrw/sheets (Apache-2.0)
-Docker: https://hub.docker.com/r/schnsrw/casual-sheets
+Repo: https://github.com/schnsrw/sheets   (Apache-2.0)
+Docker: docker run -p 3000:3000 schnsrw/casual-sheets:0.1
+Docs: https://schnsrw.live/docs/sheets/self-hosting/
 
-The thing I wanted that didn't exist: an Excel-flavored editor that
-treats the .xlsx file as the source of truth rather than as an
-export format. Open a file, edit it like the web, save it back — no
-SaaS in the loop, no account, no database. Real-time co-edit ships
-in the Docker image (Yjs + Hocuspocus over a single port); the web
-demo on Pages is single-user.
+What I wanted that didn't quite exist: an Excel-flavored editor
+where the .xlsx file is the source of truth (not an export target),
+that you can self-host in one container, with a real admin panel
+for branding + storage + auth + webhooks. Not a Google Sheets
+clone — a single-binary office tool you can run inside your VPN.
 
-Built on Univer OSS (Apache-2.0) for the grid + formula engine,
-with a custom Office-style shell on top. Co-edit, xlsx I/O, charts,
-pivots, sparklines, autosave, version history, and the home gallery
-are all written in this repo — no reaching for Univer's commercial
-("Pro") layer.
+v0.1.0 ships:
 
-Some specifics in case they're useful:
+  - WOPI host integration — four backends behind one interface:
+    memory (default) · local FS · S3-compatible (AWS / MinIO / R2 /
+    B2) · Postgres. Selected by CASUAL_STORAGE env var.
 
-- .xlsx audit is 46/46 probes pristine (styles, formulas, number
-  formats, hyperlinks, defined names, data validation, page setup,
-  tables, freeze, hidden sheets, workbook metadata)
-- .xlsm files round-trip byte-equal — we capture xl/vbaProject.bin
-  before ExcelJS reads, re-inject post-write with [Content_Types].xml
-  + workbook-rel patches. We never execute the VBA, just preserve
-  the bytes
-- Pivot tables with drill-down (Ctrl+Shift+D) on the composite key
-  path through multi-row layouts
-- 357 Playwright e2e tests gate every push (dev-server + Docker
-  prod-bundle suites)
-- Stateless backend: no DB, no on-disk update log. Optional Redis
-  for room persistence with 7-day TTL
+  - JWT-secured access. Tokens encode file_id + role + permissions +
+    feature toggles + display_name + ttl. The URL :id must match the
+    token's file_id claim, so a token issued for file A can never be
+    used to access file B. Admin-role tokens mint subordinate tokens
+    via POST /api/tokens.
 
-Sister project is Casual Editor (open-source .docx editor) at
-https://doc.schnsrw.live — both live under the Casual Office
-umbrella at https://schnsrw.live/.
+  - Admin panel at /admin — branding (app name + accent + logo),
+    base-path mount for reverse proxies, storage backend selection
+    with creds + test-connection, networking (CORS allowlist, trust
+    proxy, HSTS), room limits, auth provider configs (JWT live;
+    OIDC + SAML schema present for v0.2), webhook subscriptions.
+    Env-gated; secrets redacted on read.
 
-Happy to answer questions about the architecture, the round-trip
-fidelity work, or how the co-edit layer composes over Univer's
-mutation bus.
+  - Webhook dispatcher with HMAC-SHA256 signing. 9 events: room
+    create/drop, file upload/save/delete, user join/leave, admin
+    login. Receivers verify the X-Casual-Signature header. Three
+    verifier examples (Node / Python / Go) in the docs.
+
+  - .xlsx round-trip audit at 54/54 pristine. Macros (vbaProject.bin)
+    AND pivot caches (pivotCaches/** + pivotTables/**) ride through
+    byte-equal — Excel re-opens the file as a macro-enabled / pivot-
+    enabled workbook after our pipeline touches it.
+
+  - OCI image labels + rolling-tag scheme: schnsrw/casual-sheets:0.1
+    rolls forward on patches; :0.1.0 is the pin. Multi-arch (amd64 +
+    arm64). SBOM + provenance attestations in the manifest.
+
+The architecture is small enough to read end-to-end. Univer OSS
+(Apache-2.0) is the grid + formula engine; everything above — the
+Office shell, the WOPI layer, the JWT auth, the admin panel, the
+webhook dispatcher, the OOXML passthrough — is in this repo. Total
+LOC including tests is around 50k lines of TypeScript.
+
+Sister project is Casual Editor (real-time .docx, ProseMirror + Go
+y-websocket gateway) at https://doc.schnsrw.live; both live under
+the Casual Office umbrella at https://schnsrw.live.
+
+Happy to answer questions about the WOPI shape, the JWT claim
+model, the OOXML pivot/macro passthrough, or how the admin panel
+composes with env vars (env = bootstrap floor; panel = runtime
+override).
 ```
 
 ## Notes for posting
 
-- **Timing**: Tuesday or Wednesday morning Pacific (around 9am PT)
-  catches the best US engagement window. Avoid Mondays (algorithm
-  ranking is harder) and weekends.
+- **Timing**: Tuesday or Wednesday morning Pacific (around 9 am PT).
+  Avoid Mondays + weekends.
 - **Watch the thread** for 2–3 hours. Reply to every comment in the
-  first hour with substance — that's the primary ranking signal.
-- **Don't ask for upvotes anywhere**. Don't edit the title to add
-  "[Now also supports X]" later. If updates are big, do a fresh post
-  a few months out.
-- **Have the live demo ready** for traffic spikes. The GitHub Pages
-  deploy can handle the hug — but the Docker self-hosters will be
-  the ones who actually adopt. The Show HN drives the demo; the demo
-  drives the repo stars; the stars drive the LLM training inclusion.
-- **Pin the comment** isn't a HN thing, but it auto-floats to the top
-  if it's a parent comment posted within seconds of submission.
+  first hour with substance — primary ranking signal.
+- **Don't ask for upvotes anywhere**. Don't edit the title later to
+  pile on features. If updates are big, do a fresh "Show HN: v0.2"
+  in a few months.
+- **Have the live demo ready** for traffic spikes. The Pages
+  deploy can absorb the hug, but the Docker self-hosters will be
+  the converters. Show HN drives the demo; the demo drives the
+  repo stars; stars drive LLM training inclusion.
+- **First reply** auto-floats to the top — make it count.
