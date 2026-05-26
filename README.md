@@ -6,7 +6,7 @@ Marketing + docs site for **Casual Office** — an open-source, file-centric, re
 |---|---|---|---|---|
 | **Casual Sheets** | `.xlsx` web spreadsheet with real-time co-editing | [schnsrw/sheets](https://github.com/schnsrw/sheets) | [sheet.schnsrw.live](https://sheet.schnsrw.live/) | v0.2.1 — production-ready for 1-user/doc · "almost" for co-edit |
 | **Casual Editor** | `.docx` web editor with real-time co-editing | [schnsrw/docx](https://github.com/schnsrw/docx) | [doc.schnsrw.live](https://doc.schnsrw.live/) | M1 backend live · public preview |
-| **Casual Slides** | `.pptx` web slides editor | [schnsrw/slides](https://github.com/schnsrw/slides) | (no demo yet) | v0.0.0 · pre-tag · 68/87 fidelity ✓ |
+| **Casual Slides** | `.pptx` web slides editor | [schnsrw/slides](https://github.com/schnsrw/slides) | [slide.schnsrw.live](https://slide.schnsrw.live/) | v0.0.0 · pre-tag · 68/87 fidelity ✓ |
 | **Casual Desktop** | Tauri binaries wrapping the three web cores | (within product repos) | — | paused · queued |
 
 Built with **Astro 5** (static output) and deployed to GitHub Pages on every push to `main`. The site is **`schnsrw.live`** via the custom domain in `public/CNAME`.
@@ -132,7 +132,7 @@ A    @    185.199.111.153
 |---|---|---|
 | Casual Sheets | [schnsrw/sheets](https://github.com/schnsrw/sheets) | [sheet.schnsrw.live](https://sheet.schnsrw.live/) |
 | Casual Editor | [schnsrw/docx](https://github.com/schnsrw/docx) | [doc.schnsrw.live](https://doc.schnsrw.live/) |
-| Casual Slides | [schnsrw/slides](https://github.com/schnsrw/slides) | — |
+| Casual Slides | [schnsrw/slides](https://github.com/schnsrw/slides) | [slide.schnsrw.live](https://slide.schnsrw.live/) |
 
 ## License
 

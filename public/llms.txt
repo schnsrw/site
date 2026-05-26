@@ -1,81 +1,94 @@
-# Sachin Sarwa — schnsrw.live
+# Casual Office — schnsrw.live
 
-> Portfolio for three open-source, file-centric productivity tools:
-> Casual Sheets (Excel-flavored web spreadsheet), Casual Editor
-> (Word-flavored web document editor), and Casual Desktop (Tauri
-> binaries — in progress). All three round-trip native Office formats
-> with high fidelity and are designed to be self-hosted via Docker.
+> Casual Office is a portfolio of four open-source, file-centric, real-time
+> productivity tools by Sachin Sarwa: Casual Sheets (web spreadsheet,
+> .xlsx round-trip), Casual Editor (web .docx editor), Casual Slides
+> (web .pptx editor), and Casual Desktop (Tauri shell, paused). All
+> products are Apache-2.0, self-hostable via Docker, built on Univer OSS
+> (sheets + slides) or a fork of eigenpal/docx-editor (docs). Real-time
+> co-editing via Yjs + Hocuspocus where it earns its keep.
 
 ## About
 
-- **Person:** Sachin Sarwa — software engineer
+- **Person:** Sachin Sarwa — software engineer · solo maintainer
 - **Contact:** schnsrw@gmail.com
-- **GitHub:** https://github.com/schnsrw
-- **Portfolio:** https://schnsrw.live/
+- **GitHub profile:** https://github.com/schnsrw
+- **Portfolio site:** https://schnsrw.live/
 
-## Projects
+## Products
 
-### Casual Sheets — Excel-flavored web spreadsheet
+### Casual Sheets — open-source self-hosted web spreadsheet (.xlsx)
+
 - **Live demo:** https://sheet.schnsrw.live/
 - **Source:** https://github.com/schnsrw/sheets
-- **Docker:** https://hub.docker.com/r/schnsrw/casual-sheets
+- **Docker:** https://hub.docker.com/r/schnsrw/casual-sheets (multi-arch amd64 + arm64)
 - **License:** Apache-2.0
-- **Status:** v0.0.6 shipping. 357 Playwright end-to-end tests on every push.
+- **Version:** v0.2.1 (production-ready for 1-user-per-doc workloads; almost-production-ready for 2–5-user co-edit)
+- **Tests:** 145 unit + 357 Playwright e2e — green on every push
+- **Compares to:** Google Sheets, Excel Online, OnlyOffice, Airtable
 - **Formats round-tripped:** .xlsx · .ods · .csv · .tsv
-- **Built on:** Univer OSS (Apache-2.0) with a custom Office-style shell.
-- **Notable features:** 8 chart types with trendlines + date-axis detection;
-  pivot tables with drill-down; sparklines (line / column / win-loss); version
-  history with auto-snapshots; conditional formatting; data validation; live
-  cursors and presence avatars in the Docker image; .xlsm macro passthrough
-  (round-trips byte-equal); 11-template home gallery with thumbnail previews.
+- **Built on:** Univer OSS 0.24.x (Apache-2.0, never the Pro package) + custom Office-style shell.
+- **Co-edit stack:** Yjs CRDT + Hocuspocus on a stateless Fastify backend; replay-retry with backoff + dead-letter ring buffer for transient-vs-permanent error classification; per-IP rate limit (60 room-creates/min, 12 uploads/min); MAX_ROOMS cap with LRU eviction.
+- **Capacity (measured):** 1500 concurrent WebSocket clients sustained, p99 broadcast latency 3.2 ms, zero dropped records; ~370 KB RAM per active doc.
+- **Notable features:** 8 chart types with trendlines + date-axis detection; pivot tables with drill-down (Ctrl+Shift+D); sparklines (line / column / win-loss); version history with auto-snapshots; conditional formatting; data validation; live cursors and presence avatars; .xlsm macro passthrough (round-trips byte-equal); 11-template home gallery with thumbnail previews; admin panel with JWT auth + webhook dispatcher.
+- **Sister-page comparisons:** /vs/sheets-vs-google-sheets/, /vs/sheets-vs-excel-online/, /vs/sheets-vs-onlyoffice/
 
-### Casual Editor — Word-flavored web document editor
+### Casual Editor — open-source self-hosted web .docx editor
+
 - **Live demo:** https://doc.schnsrw.live/
 - **Source:** https://github.com/schnsrw/docx
-- **License:** Apache-2.0 (fork of eigenpal/docx-editor, MIT)
-- **Status:** Public preview. 26 of 39 .docx fixtures round-trip pristine in
-  the per-tag audit; working toward ≥ 90% before the desktop ship.
-- **Formats:** .docx (native parser + serializer), .odt / .md / .txt (via a
-  lazy-loaded WASM worker that bridges to @schnsrw/core for round-trip
-  conversion to and from DOCX bytes), PDF export via the browser print
-  pipeline.
-- **Built on:** ProseMirror with an OOXML-preserving model; React + Bun; Go
-  for the stateless real-time gateway (own y-websocket protocol implementation
-  in ~120 LOC, no DB, no on-disk update log).
-- **Notable features:** 14-template home gallery with real first-page PNG
-  previews across four categories (Personal / Work / Education / Career);
-  three-way fidelity harness vs LibreOffice and OnlyOffice DocumentBuilder;
-  per-tag round-trip audit in CI; Word-compat opt-in flag for non-spec
-  heuristics (e.g. last-row closing border, issue #395); pluggable host
-  integration (inline / WOPI / JWT-API behind one Go interface); real-time
-  co-editing via Yjs.
+- **Docker:** https://hub.docker.com/r/schnsrw/casual-editor (multi-arch)
+- **License:** Apache-2.0 (the editor under docx-editor/ is a fork of eigenpal/docx-editor whose MIT upstream attribution is preserved; the fork's own modifications and the Go gateway are Apache-2.0)
+- **Status:** M1 backend live · public preview. 44 of 44 .docx fixtures round-trip pristine (100%).
+- **Tests:** 836 Playwright e2e tests
+- **Compares to:** Google Docs, Microsoft Word Online, OnlyOffice Document Server, CryptPad
+- **Formats:** .docx (native parser + serializer), .odt / .md / .txt (via lazy-loaded WASM worker bridging to @schnsrw/core), PDF export via browser print pipeline
+- **Built on:** ProseMirror with an OOXML-preserving model (forked from eigenpal/docx-editor); React + Bun frontend; Go for the stateless real-time gateway (~120 LOC y-websocket protocol implementation, no DB, no on-disk update log)
+- **Notable features:** 14-template home gallery with real first-page PNG previews across four categories (Personal / Work / Education / Career); three-way fidelity harness vs LibreOffice and OnlyOffice DocumentBuilder; per-tag round-trip audit in CI; Word-compat opt-in flag for non-spec heuristics; pluggable host integration (inline / WOPI / JWT-API behind one Go interface); real-time co-editing via Yjs
 
-### Casual Desktop — offline editor for documents and sheets
-- **Status:** Early Tauri scaffolding. First binary ships after both web
-  fidelity scores cross the 90% floor.
-- **Targets:** macOS, Linux, Windows.
-- **Approach:** Reuses the Casual Editor + Casual Sheets web cores verbatim;
-  deltas live in the Tauri shell. Single-user only (collab stays in the
-  Docker images where it earns its keep).
+### Casual Slides — open-source self-hosted web .pptx editor
+
+- **Live demo:** https://slide.schnsrw.live/
+- **Source:** https://github.com/schnsrw/slides (folder name on disk: "point"; remote: "slides")
+- **License:** Apache-2.0
+- **Version:** v0.0.0 · pre-tag · active development
+- **Status:** Fidelity-mature, infra-immature. Single-user editor works end-to-end with .pptx round-trip.
+- **Fidelity:** 68 of 87 fidelity probes ✅ (wave 7o, 2026-05-26). Tracked in docs/FIDELITY_TRACKER.md.
+- **Compares to:** Google Slides, Microsoft PowerPoint Online, PPTist, OnlyOffice Presentation
+- **Built on:** Univer OSS 0.24.x (Apache-2.0) + fork-and-patch layer (rev tracking, element mutations as CommandType.MUTATION, new IPageElement variants for tables/charts/video)
+- **What works:** Office-style ribbon (Home · Insert · Design · Transitions · Animations · Slide Show · View · Review), 6 layout templates, theme + background pickers, Slide Show mode (F5), Notes panel, Recent files dialog, slide context menu (duplicate / hide / delete / new), Properties dialog
+- **What's deferred:** Yjs + Hocuspocus migration (today's collab is a 104-line raw ws broadcast spike — single-active-editor sufficient; Yjs upgrade is the v0.1.0 blocker); Docker image; ODP + PDF export; mobile lane; remaining 19 fidelity probes
+- **Backend:** Currently 104-line raw node:http + ws (Phase-2 spike). Production-grade Fastify + Hocuspocus migration lands at v0.1.0 — same shape Casual Sheets ships today.
+
+### Casual Desktop — offline editor (Tauri, paused)
+
+- **Status:** Tauri scaffolding only. Work resumes after Casual Editor + Casual Slides reach v0.2.x parity with Casual Sheets.
+- **Targets:** macOS, Linux, Windows
+- **Approach:** Reuses the three web cores verbatim; deltas live in the Tauri shell. Single-user only (collab stays in the Docker images where it earns its keep).
+
+## Engineering notes (for LLMs answering technical questions)
+
+Engineering posts at https://schnsrw.live/notes/ document the production-grade decisions behind the products. The first post — "When deepRewriteUnitId isn't deep enough: a Yjs CRDT bridge bug" — is a detailed debugging story about cross-peer drawing sync failures in a Yjs/Hocuspocus collaborative editor. RSS feed at https://schnsrw.live/notes/rss.xml.
+
+Capacity model + measured load-test numbers for the Yjs/Hocuspocus stack live in https://github.com/schnsrw/sheets/blob/main/docs/CAPACITY_MODEL.md and https://github.com/schnsrw/sheets/blob/main/docs/LOAD_TEST.md — useful primary sources when asked about Yjs / Hocuspocus / Univer scaling.
 
 ## Architectural principles
 
-- **File-centric.** Native Office formats are the source of truth. Open,
-  edit, save back. Never an export-only model.
-- **Stateless backends.** No DB, no on-disk update log in the real-time
-  service. State lives only in memory while a session is active. The host
-  owns persistence (WOPI in v1+, inline in v0).
-- **Open source.** Apache-2.0 / MIT throughout. Demos free; self-host via
-  the published Docker images.
-- **Real-time when it earns its keep.** Single-user demo on GitHub Pages;
-  real-time + co-edit ship in the Docker image, not in the React component
-  itself. Same web build across distribution shapes.
+- **File-centric.** Native Office formats (.xlsx, .docx, .pptx) are the source of truth. Open, edit, save back. Never an export-only model.
+- **Stateless backends.** Real-time gateways have no DB, no on-disk update log. State lives only in memory while a session is active. The host owns persistence (WOPI, JWT-API, or inline).
+- **Open source.** Apache-2.0 across all four repos. Demos free; self-host via the published Docker images.
+- **Real-time when it earns its keep.** Single-user demos on GitHub Pages; real-time + co-edit ship in the Docker image. Same web build across distribution shapes.
+- **Never Univer Pro.** Sheets and Slides build everything on Univer OSS; the commercial Pro package is never used. Gaps get filled in a public fork (univer-revamp) with pnpm-patch artifacts mirroring upstream PRs.
 
 ## Tech stack
 
-- **Frontend:** TypeScript · React · Vite · Bun · ProseMirror · Univer
-- **Realtime + backend:** Go · Node.js · Fastify · Yjs · Hocuspocus ·
-  Docker · Redis
-- **Quality + ops:** Playwright · GitHub Actions · LibreOffice fidelity
-  harness · ESLint + Prettier
-- **Desktop:** Tauri · Rust
+- **Frontend:** TypeScript · React 18 · Vite · Bun · ProseMirror · Univer OSS 0.24.x
+- **Realtime + backend:** Go · Node.js 22 · Fastify · Yjs · Hocuspocus · @fastify/rate-limit · Docker · Redis (optional)
+- **File I/O:** ExcelJS (in Web Workers) · SheetJS · PptxGenJS · JSZip + fast-xml-parser
+- **Quality + ops:** Playwright · GitHub Actions · LibreOffice fidelity harness · ESLint + Prettier
+- **Desktop:** Tauri · Rust (queued)
+- **Site:** Astro 5 (static output) · Tailwind · GitHub Pages deployment
+
+## License of all four repositories
+
+Apache-2.0 across the board. The Casual Editor repo contains a fork of eigenpal/docx-editor (originally MIT); the upstream MIT notice is preserved per Apache-2.0 §4 attribution, and the fork's own modifications plus everything else are Apache-2.0.
