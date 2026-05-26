@@ -3,7 +3,7 @@ import Base from '../../layouts/Base.astro';
 
 const title = 'License · Casual Office';
 const description =
-  'Casual Office licensing — Apache-2.0 across Casual Sheets, the Casual Editor Go gateway, and the marketing site. MIT on the editor fork (eigenpal/docx-editor).';
+  'Casual Office licensing — Apache-2.0 across all four repos (Casual Sheets, Casual Editor, Casual Slides, marketing site). The Casual Editor fork preserves attribution to its MIT-licensed upstream (eigenpal/docx-editor).';
 ---
 <Base {title} {description}>
   <section class="hero">
@@ -11,9 +11,9 @@ const description =
       <span class="eyebrow">License</span>
       <h1 class="display">Open-source, end&nbsp;to&nbsp;end.</h1>
       <p class="lede">
-        Every project under Casual Office ships under an OSI-approved licence —
-        Apache-2.0 or MIT. You can self-host any of the demos via the published
-        Docker images, fork the repos, and ship derivatives.
+        Every project under Casual Office ships under <strong>Apache-2.0</strong>.
+        You can self-host any of the demos via the published Docker images,
+        fork the repos, and ship derivatives — commercial use included.
       </p>
     </div>
   </section>
@@ -33,11 +33,20 @@ const description =
           </tr>
           <tr>
             <td><a href="https://github.com/schnsrw/docx" rel="noopener" target="_blank">schnsrw/docx</a></td>
-            <td><strong>Apache-2.0</strong> + <strong>MIT</strong></td>
-            <td>Casual Editor — Apache-2.0 on the Go gateway (<code>backend/</code>);
-              MIT on the editor fork (<code>docx-editor/</code>, forked from
-              <code>eigenpal/docx-editor</code>). The AGPL <code>agent-use</code> package
-              from the upstream has been removed.</td>
+            <td><strong>Apache-2.0</strong></td>
+            <td>Casual Editor — entire repo. The editor itself
+              (<code>docx-editor/</code>) is a fork of the MIT-licensed
+              <a href="https://github.com/eigenpal/docx-editor" rel="noopener" target="_blank">
+              <code>eigenpal/docx-editor</code></a> with the upstream MIT notice
+              preserved per attribution; our fork's own modifications and the Go
+              gateway (<code>backend/</code>) are Apache-2.0. The AGPL
+              <code>agent-use</code> package from the upstream has been removed.</td>
+          </tr>
+          <tr>
+            <td><a href="https://github.com/schnsrw/slides" rel="noopener" target="_blank">schnsrw/slides</a></td>
+            <td><strong>Apache-2.0</strong></td>
+            <td>Casual Slides — the entire app, including the <code>univer-revamp</code>
+              fork patches.</td>
           </tr>
           <tr>
             <td><a href="https://github.com/schnsrw/site" rel="noopener" target="_blank">schnsrw/site</a></td>
